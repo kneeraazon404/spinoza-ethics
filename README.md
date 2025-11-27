@@ -1,41 +1,32 @@
-# Spinoza Ethics Explorer
+# Spinoza's Ethics - Interactive Visual Exploration
 
-An interactive web application designed to facilitate the exploration and understanding of Baruch Spinoza's *Ethics*. This project leverages modern web technologies to visualize complex philosophical concepts through interactive diagrams and AI-assisted guidance.
-
-## Key Features
-
-- **Interactive Diagrams**: Visualize the structure of Spinoza's arguments using various diagram types:
-  - **Hierarchy Diagram**: Explore the ontological hierarchy.
-  - **Flow Diagram**: Trace the logical flow of propositions.
-  - **Affects Diagram**: Understand the relationships between different affects.
-  - **System, Power, & Parallelism Diagrams**: Deep dive into specific philosophical systems.
-- **Geometric Advisor**: An AI-powered assistant to help navigate and interpret the text.
-- **Modern UI**: A clean, responsive interface built with the latest web standards.
-
-## Tech Stack
-
-- **Framework**: [Next.js 16](https://nextjs.org/)
-- **Library**: [React 19](https://react.dev/)
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
-- **Icons**: [Lucide React](https://lucide.dev/)
+This is a Next.js application that provides an interactive visual exploration of Spinoza's Ethics, from Substance to Blessedness.
 
 ## Getting Started
 
-1.  **Clone the repository:**
-    ```bash
-    git clone <repository-url>
-    cd spinoza-app
-    ```
+First, run the development server:
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-3.  **Run the development server:**
-    ```bash
-    npm run dev
-    ```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-4.  **Open your browser:**
-    Navigate to [http://localhost:3000](http://localhost:3000) to view the application.
+## Deployment on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+### Steps to Deploy
+
+1.  Push this repository to GitHub.
+2.  Log in to Vercel.
+3.  Import the project from GitHub.
+4.  Click "Deploy".
