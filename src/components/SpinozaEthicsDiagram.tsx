@@ -22,24 +22,24 @@ const SpinozaEthicsDiagram = () => {
     ];
 
     return (
+        <div className="w-full min-h-screen bg-[#f9fafb] text-slate-900 font-sans flex flex-col">
+            
+            {/* HEADER CONTENT */}
+            <header className="w-full max-w-5xl mx-auto pt-12 pb-8 px-6 text-center z-10">
+                <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-3 tracking-tight">
+                    Spinoza&apos;s Ethics
+                </h1>
+                <p className="text-sm md:text-base text-slate-500 font-bold tracking-[0.25em] uppercase mb-2">
+                    Interactive Visual Exploration
+                </p>
+                <p className="text-base md:text-lg italic text-slate-400 font-serif">
+                    From Substance to Blessedness: A Complete Philosophical System
+                </p>
+            </header>
 
-        <div className="w-full min-h-screen bg-slate-50 p-4 font-sans">
-            <div className="w-full max-w-[1800px] mx-auto">
-                {/* Header */}
-                <div className="text-center mb-10">
-                    <h1 className="text-5xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">
-                        Spinoza&apos;s Ethics
-                    </h1>
-                    <p className="text-lg text-slate-500 font-bold tracking-[0.2em] uppercase italic">
-                        Interactive Visual Exploration
-                    </p>
-                    <p className="text-lg italic text-gray-500 mt-2">
-                        From Substance to Blessedness: A Complete Philosophical System
-                    </p>
-                </div>
-
-                {/* View tabs */}
-                <div className="flex flex-wrap justify-center gap-3 mb-10">
+            {/* NAVIGATION - Styled as a clean toggle list, no heavy cards */}
+            <nav className="w-full max-w-screen-xl mx-auto mb-6 px-4 z-10">
+                <div className="flex flex-wrap justify-center gap-2 md:gap-3">
                     {views.map(view => {
                         const Icon = view.icon;
                         const isActive = activeView === view.id;
@@ -47,20 +47,25 @@ const SpinozaEthicsDiagram = () => {
                             <button
                                 key={view.id}
                                 onClick={() => setActiveView(view.id)}
-                                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 ${isActive
-                                    ? 'bg-slate-800 text-white shadow-lg ring-2 ring-slate-800 ring-offset-2'
-                                    : 'bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 shadow-sm border border-slate-200'
-                                    }`}
+                                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-300 border ${
+                                    isActive
+                                    ? 'bg-slate-900 text-white border-slate-900 shadow-lg transform scale-105'
+                                    : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:text-slate-800 hover:bg-slate-50'
+                                }`}
                             >
-                                <Icon size={18} />
-                                {view.name}
+                                <Icon size={16} strokeWidth={isActive ? 2.5 : 2} />
+                                <span>{view.name}</span>
                             </button>
                         );
                     })}
                 </div>
+            </nav>
 
-                {/* Diagram container */}
-                <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl shadow-slate-200/50 p-4 overflow-hidden">
+            {/* DIAGRAM CONTAINER */}
+            {/* Removed the "White Card" styling (bg-white, shadow-2xl). 
+                Now it uses a subtle border to frame the content while blending with the background. */}
+            <main className="w-full max-w-[1800px] mx-auto px-2 md:px-6 flex-grow mb-12">
+                <div className="w-full overflow-hidden rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-sm relative">
                     <div className="w-full overflow-x-auto">
                         <div className="min-w-[1000px]">
                             {activeView === 'hierarchy' && <HierarchyDiagram />}
@@ -72,20 +77,23 @@ const SpinozaEthicsDiagram = () => {
                         </div>
                     </div>
                 </div>
+            </main>
 
-                {/* Footer info */}
-                <div className="mt-12 text-center">
-                    <p className="text-slate-400 text-sm font-medium italic">
+            {/* FOOTER CONTENT */}
+            <footer className="w-full py-12 text-center border-t border-slate-200/50 bg-[#f9fafb]">
+                <div className="max-w-md mx-auto px-6">
+                    <p className="text-slate-500 text-base font-serif italic mb-2">
                         &quot;All things excellent are as difficult as they are rare.&quot;
                     </p>
-                    <p className="text-slate-300 text-xs mt-1 font-semibold uppercase tracking-widest">
-                        Ethics V, Scholium to P42
-                    </p>
+                    <div className="flex items-center justify-center gap-2 text-xs font-bold tracking-widest text-slate-400 uppercase">
+                        <span>Ethics V</span>
+                        <span className="w-1 h-1 rounded-full bg-slate-300"></span>
+                        <span>Scholium to P42</span>
+                    </div>
                 </div>
-            </div>
+            </footer>
         </div>
     );
-
 };
 
 export default SpinozaEthicsDiagram;

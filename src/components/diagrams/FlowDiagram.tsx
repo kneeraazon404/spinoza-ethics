@@ -1,5 +1,85 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSpinoza } from '@/context/SpinozaContext';
+
+interface InteractiveGroupProps {
+    transform?: string;
+    onClick?: () => void;
+    children: React.ReactNode;
+    className?: string;
+}
+
+const InteractiveGroup = ({ transform, onClick, children, className = "" }: InteractiveGroupProps) => (
+    <g
+        transform={transform}
+        onClick={onClick}
+        className={`cursor-pointer ${className}`}
+        style={{ pointerEvents: 'all' }}
+    >
+        <g className="transition-all duration-300 ease-out hover:scale-[1.02] hover:drop-shadow-lg">
+            {children}
+        </g>
+    </g>
+);
+
+interface FlowCardProps {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    title: string;
+    subtitle: string;
+    fill: string;
+    stroke: string;
+    textFill: string;
+    onClick: () => void;
+}
+
+interface SubCardProps {
+    x: number;
+    y: number;
+    width: number;
+    text: string;
+    fill: string;
+    stroke: string;
+    textFill: string;
+    parentX: number;
+    parentY: number;
+    onClick: () => void;
+}
+
+// New Card Component matching Hierarchy style
+const FlowCard = ({ x, y, width, height, title, subtitle, fill, stroke, textFill, onClick }: FlowCardProps) => (
+    <InteractiveGroup transform={`translate(${x}, ${y})`} onClick={onClick}>
+        <rect width={width} height={height} rx="8" fill={fill} stroke={stroke} strokeWidth="3" filter="url(#softShadow)" />
+        <text x={width / 2} y={35} textAnchor="middle" fill={textFill} fontSize="20" fontWeight="900" letterSpacing="0.5">
+            {title}
+        </text>
+        <text x={width / 2} y={60} textAnchor="middle" fill={textFill} fontSize="16" fontWeight="500" fontStyle="italic" opacity="0.9">
+            {subtitle}
+        </text>
+    </InteractiveGroup>
+);
+
+// SubCard Component
+const SubCard = ({ x, y, width, text, fill, stroke, textFill, parentX, parentY, onClick }: SubCardProps) => (
+    <g>
+        {/* Curved Connector from parent center bottom to subcard top center */}
+        <path 
+            d={`M ${parentX} ${parentY} C ${parentX} ${y - 15}, ${x + width/2} ${parentY + 15}, ${x + width/2} ${y}`} 
+            stroke={stroke} 
+            strokeWidth="2" 
+            opacity="0.4" 
+            fill="none" 
+        />
+        
+        <InteractiveGroup transform={`translate(${x}, ${y})`} onClick={onClick}>
+            <rect width={width} height={36} rx="6" fill={fill} stroke={stroke} strokeWidth="1.5" />
+            <text x={width / 2} y={23} textAnchor="middle" fill={textFill} fontSize="15" fontWeight="600">
+                {text}
+            </text>
+        </InteractiveGroup>
+    </g>
+);
 
 const FlowDiagram = () => {
     const { explainConcept } = useSpinoza();
@@ -8,162 +88,191 @@ const FlowDiagram = () => {
         explainConcept(title, context);
     };
 
-    const colors = {
-        bg: "#f8fafc",
-        part1: { fill: "#f3e8ff", stroke: "#7e22ce", text: "#581c87" },
-        part2: { fill: "#e0e7ff", stroke: "#4338ca", text: "#312e81" },
-        part3: { fill: "#ffe4e6", stroke: "#be123c", text: "#881337" },
-        part4: { fill: "#ffedd5", stroke: "#c2410c", text: "#7c2d12" },
-        part5: { fill: "#dcfce7", stroke: "#15803d", text: "#14532d" },
-        geometric: { fill: "#f1f5f9", stroke: "#64748b", text: "#334155" },
-        arrow: "#94a3b8"
+    const CANVAS_WIDTH = 1600;
+    const CANVAS_HEIGHT = 950; // Adjusted height for spacing
+
+    // Palette consistent with Hierarchy
+    const C = {
+        bg: "#ffffff",
+        part1: { stroke: "#a855f7", fill: "#f3e8ff", text: "#6b21a8" }, // God (Purple)
+        part2: { stroke: "#4f46e5", fill: "#e0e7ff", text: "#312e81" }, // Mind (Indigo)
+        part3: { stroke: "#db2777", fill: "#fce7f3", text: "#831843" }, // Affects (Pink/Rose)
+        part4: { stroke: "#ea580c", fill: "#ffedd5", text: "#9a3412" }, // Bondage (Orange)
+        part5: { stroke: "#059669", fill: "#d1fae5", text: "#065f46" }, // Freedom (Emerald)
+        arrow: { stroke: "#94a3b8" }
     };
 
-    const CANVAS_WIDTH = 1200;
-    const CANVAS_HEIGHT = 1400;
-    const CARD_WIDTH = 340;
-    const CARD_HEIGHT = 280;
+    // Bolder arrow style for main connections
+    const arrowStyle = { strokeWidth: "2", fill: "none", opacity: "0.8" };
 
-    interface InteractiveGroupProps {
-        transform?: string;
-        onClick?: () => void;
-        children: React.ReactNode;
-        className?: string;
-    }
-
-    const InteractiveGroup = ({ transform, onClick, children, className = "" }: InteractiveGroupProps) => (
-        <g
-            transform={transform}
-            onClick={onClick}
-            className={`cursor-pointer transition-all duration-300 hover:opacity-75 ${className}`}
-            style={{ pointerEvents: 'all' }}
-        >
-            {children}
-        </g>
-    );
+    // Y-COORDINATES (Optimized Layout)
+    const Y_HEADER = 30;
+    const Y_P1 = 70;
+    const Y_P1_SUB = 200;
+    const Y_P23 = 350;
+    const Y_P23_SUB1 = 480;
+    const Y_P23_SUB2 = 540;
+    const Y_P45 = 700;
+    const Y_P45_SUB1 = 830;
+    const Y_P45_SUB2 = 890;
 
     return (
-        <div className="w-full min-h-screen bg-slate-50 relative font-sans overflow-hidden">
+        <div className="w-full min-h-[950px] relative font-sans overflow-auto" style={{ backgroundColor: C.bg }}>
             {/* HEADER */}
-            <div className="absolute top-6 left-8 z-10 pointer-events-none">
-                <h2 className="text-slate-400 text-sm font-semibold tracking-widest uppercase mb-1.5">
-                    Ethica Ordine Geometrico Demonstrata
+            <div className="absolute top-2 left-10 z-10 pointer-events-none">
+                <h2 className="text-slate-400 text-sm font-bold tracking-widest uppercase mb-1.5">
+                    ETHICA ORDINE GEOMETRICO DEMONSTRATA
                 </h2>
-                <h3 className="text-slate-300 text-xs font-medium tracking-wider uppercase">
-                    / The Complete Argument Flow
+                <h3 className="text-slate-300 text-xs font-semibold tracking-wider uppercase">
+                    / THE COMPLETE ARGUMENT FLOW
                 </h3>
             </div>
 
-            <div className="w-full max-w-[1600px] mx-auto aspect-[12/14] relative px-4">
-                <svg viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`} preserveAspectRatio="xMidYMid meet" className="w-full h-full">
+            <div className="w-full max-w-[1600px] mx-auto aspect-auto relative px-4 mt-2">
+                <svg viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`} className="w-full h-auto min-h-[950px]">
                     <defs>
-                        <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                            <path d="M0,0 L6,3 L0,6 L0,0" fill={colors.arrow} />
+                        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+                            <feOffset dx="2" dy="3" result="offsetblur" />
+                            <feComponentTransfer><feFuncA type="linear" slope="0.1" /></feComponentTransfer>
+                            <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
+                        </filter>
+
+                        <pattern id="globalGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" strokeWidth="1" />
+                        </pattern>
+
+                        <linearGradient id="gradGeometric" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#f8fafc" />
+                            <stop offset="100%" stopColor="#e2e8f0" />
+                        </linearGradient>
+
+                        {/* Smaller, Thinner Arrowhead */}
+                        <marker id="arrow" markerWidth="5" markerHeight="3" refX="4" refY="1.5" orient="auto">
+                            <path d="M0,0 L5,1.5 L0,3 L0,0" fill={C.arrow.stroke} />
                         </marker>
                     </defs>
 
-                    {/* Three Levels of Being */}
-                    <text x="180" y="50" textAnchor="middle" fontSize="16" fontWeight="900" fill={colors.part1.text} letterSpacing="1.5" opacity="0.5">SUBSTANCE</text>
-                    <text x="600" y="50" textAnchor="middle" fontSize="16" fontWeight="900" fill={colors.part2.text} letterSpacing="1.5" opacity="0.5">ATTRIBUTES</text>
-                    <text x="1020" y="50" textAnchor="middle" fontSize="16" fontWeight="900" fill={colors.part3.text} letterSpacing="1.5" opacity="0.5">MODES</text>
+                    <rect width="100%" height="100%" fill="url(#globalGrid)" />
 
-                    {/* PART I: GOD */}
-                    <InteractiveGroup transform="translate(430, 100)" onClick={() => handleNodeClick("Part I: Of God", "The foundation of the system")}>
-                        <rect width={CARD_WIDTH} height={CARD_HEIGHT} rx="8" fill={colors.part1.fill} stroke={colors.part1.stroke} strokeWidth="4" />
-                        <text x={CARD_WIDTH / 2} y="45" textAnchor="middle" fontSize="24" fontWeight="900" fill={colors.part1.text} letterSpacing="1.5">PART I: GOD</text>
-                        <text x={CARD_WIDTH / 2} y="70" textAnchor="middle" fontSize="16" fontWeight="700" fill={colors.part1.text} fontStyle="italic">Substance & Nature</text>
+                    {/* --- ONTOLOGY HEADERS --- */}
+                    <text x="400" y={Y_HEADER} textAnchor="middle" fill={C.part1.stroke} fontSize="16" fontWeight="900" letterSpacing="3" opacity="0.8">SUBSTANCE</text>
+                    <text x="800" y={Y_HEADER} textAnchor="middle" fill="#64748b" fontSize="16" fontWeight="900" letterSpacing="3" opacity="0.8">ATTRIBUTES</text>
+                    <text x="1200" y={Y_HEADER} textAnchor="middle" fill={C.part3.stroke} fontSize="16" fontWeight="900" letterSpacing="3" opacity="0.8">MODES</text>
 
-                        <g transform="translate(30, 110)">
-                            <text y="0" fontSize="14" fontWeight="700" fill={colors.part1.text}>• One Infinite Substance (D6)</text>
-                            <text y="30" fontSize="14" fontWeight="700" fill={colors.part1.text}>• Causa Sui (Self-Caused) (D1)</text>
-                            <text y="60" fontSize="14" fontWeight="700" fill={colors.part1.text}>• God = Nature (Deus sive Natura)</text>
-                            <text y="90" fontSize="14" fontWeight="700" fill={colors.part1.text}>• Determinism (IP32)</text>
-                            <text y="120" fontSize="14" fontWeight="700" fill={colors.part1.text}>• No Teleology (Appendix)</text>
-                        </g>
-                    </InteractiveGroup>
-
-                    {/* PART II: MIND */}
-                    <InteractiveGroup transform="translate(120, 460)" onClick={() => handleNodeClick("Part II: Of The Mind", "Nature and origin of the mind")}>
-                        <rect width={CARD_WIDTH} height={CARD_HEIGHT} rx="8" fill={colors.part2.fill} stroke={colors.part2.stroke} strokeWidth="4" />
-                        <text x={CARD_WIDTH / 2} y="45" textAnchor="middle" fontSize="24" fontWeight="900" fill={colors.part2.text} letterSpacing="1.5">PART II: MIND</text>
-                        <text x={CARD_WIDTH / 2} y="70" textAnchor="middle" fontSize="16" fontWeight="700" fill={colors.part2.text} fontStyle="italic">Knowledge & Ideas</text>
-
-                        <g transform="translate(30, 110)">
-                            <text y="0" fontSize="14" fontWeight="700" fill={colors.part2.text}>• Parallelism (IIP7)</text>
-                            <text y="30" fontSize="14" fontWeight="700" fill={colors.part2.text}>• Idea of the Body (IIP13)</text>
-                            <text y="60" fontSize="14" fontWeight="700" fill={colors.part2.text}>• Three Kinds of Knowledge:</text>
-                            <text y="90" fontSize="14" fontWeight="700" fill={colors.part2.text} x="15">- Imagination (Inadequate)</text>
-                            <text y="120" fontSize="14" fontWeight="700" fill={colors.part2.text} x="15">- Reason (Common Notions)</text>
-                            <text y="150" fontSize="14" fontWeight="700" fill={colors.part2.text} x="15">- Intuition (Essence)</text>
-                        </g>
-                    </InteractiveGroup>
-
-                    {/* PART III: AFFECTS */}
-                    <InteractiveGroup transform="translate(740, 460)" onClick={() => handleNodeClick("Part III: Of The Affects", "Origin and nature of emotions")}>
-                        <rect width={CARD_WIDTH} height={CARD_HEIGHT} rx="8" fill={colors.part3.fill} stroke={colors.part3.stroke} strokeWidth="4" />
-                        <text x={CARD_WIDTH / 2} y="45" textAnchor="middle" fontSize="24" fontWeight="900" fill={colors.part3.text} letterSpacing="1.5">PART III: AFFECTS</text>
-                        <text x={CARD_WIDTH / 2} y="70" textAnchor="middle" fontSize="16" fontWeight="700" fill={colors.part3.text} fontStyle="italic">Psychology & Emotions</text>
-
-                        <g transform="translate(30, 110)">
-                            <text y="0" fontSize="14" fontWeight="700" fill={colors.part3.text}>• Conatus (Striving) (IIIP6)</text>
-                            <text y="30" fontSize="14" fontWeight="700" fill={colors.part3.text}>• Primary Affects:</text>
-                            <text y="60" fontSize="14" fontWeight="700" fill={colors.part3.text} x="15">- Desire (Cupiditas)</text>
-                            <text y="90" fontSize="14" fontWeight="700" fill={colors.part3.text} x="15">- Joy (Laetitia)</text>
-                            <text y="120" fontSize="14" fontWeight="700" fill={colors.part3.text} x="15">- Sadness (Tristitia)</text>
-                            <text y="150" fontSize="14" fontWeight="700" fill={colors.part3.text}>• Imitation of Affects</text>
-                        </g>
-                    </InteractiveGroup>
-
-                    {/* PART IV: BONDAGE */}
-                    <InteractiveGroup transform="translate(120, 820)" onClick={() => handleNodeClick("Part IV: Of Human Bondage", "Strength of the emotions")}>
-                        <rect width={CARD_WIDTH} height={CARD_HEIGHT} rx="8" fill={colors.part4.fill} stroke={colors.part4.stroke} strokeWidth="4" />
-                        <text x={CARD_WIDTH / 2} y="45" textAnchor="middle" fontSize="24" fontWeight="900" fill={colors.part4.text} letterSpacing="1.5">PART IV: BONDAGE</text>
-                        <text x={CARD_WIDTH / 2} y="70" textAnchor="middle" fontSize="16" fontWeight="700" fill={colors.part4.text} fontStyle="italic">Ethics & Strength</text>
-
-                        <g transform="translate(30, 110)">
-                            <text y="0" fontSize="14" fontWeight="700" fill={colors.part4.text}>• Power of External Causes</text>
-                            <text y="30" fontSize="14" fontWeight="700" fill={colors.part4.text}>• Good = Useful (IVD1)</text>
-                            <text y="60" fontSize="14" fontWeight="700" fill={colors.part4.text}>• Virtue = Power (IVD8)</text>
-                            <text y="90" fontSize="14" fontWeight="700" fill={colors.part4.text}>• The Free Man (IVP67-73)</text>
-                            <text y="120" fontSize="14" fontWeight="700" fill={colors.part4.text}>• Social Contract</text>
-                        </g>
-                    </InteractiveGroup>
-
-                    {/* PART V: FREEDOM */}
-                    <InteractiveGroup transform="translate(740, 820)" onClick={() => handleNodeClick("Part V: Of Human Freedom", "Power of the intellect")}>
-                        <rect width={CARD_WIDTH} height={CARD_HEIGHT} rx="8" fill={colors.part5.fill} stroke={colors.part5.stroke} strokeWidth="4" />
-                        <text x={CARD_WIDTH / 2} y="45" textAnchor="middle" fontSize="24" fontWeight="900" fill={colors.part5.text} letterSpacing="1.5">PART V: FREEDOM</text>
-                        <text x={CARD_WIDTH / 2} y="70" textAnchor="middle" fontSize="16" fontWeight="700" fill={colors.part5.text} fontStyle="italic">Salvation & Blessedness</text>
-
-                        <g transform="translate(30, 110)">
-                            <text y="0" fontSize="14" fontWeight="700" fill={colors.part5.text}>• Power of Reason over Affects</text>
-                            <text y="30" fontSize="14" fontWeight="700" fill={colors.part5.text}>• Intellectual Love of God</text>
-                            <text y="60" fontSize="14" fontWeight="700" fill={colors.part5.text}>• Eternity of the Mind (VP23)</text>
-                            <text y="90" fontSize="14" fontWeight="700" fill={colors.part5.text}>• Third Kind of Knowledge</text>
-                            <text y="120" fontSize="14" fontWeight="700" fill={colors.part5.text}>• Blessedness (Beatitudo)</text>
-                        </g>
-                    </InteractiveGroup>
-
-                    {/* CONNECTIONS */}
+                    {/* --- MAIN FLOW CONNECTIONS (Curved Bezier - Bolder) --- */}
+                    
                     {/* I -> II */}
-                    <path d="M 600 380 L 290 460" stroke={colors.arrow} strokeWidth="2" markerEnd="url(#arrow)" fill="none" />
+                    <path d={`M 800 ${Y_P1 + 90} C 800 ${Y_P23 - 40}, 400 ${Y_P23 - 40}, 400 ${Y_P23}`} stroke={C.arrow.stroke} {...arrowStyle} markerEnd="url(#arrow)" />
                     {/* I -> III */}
-                    <path d="M 600 380 L 910 460" stroke={colors.arrow} strokeWidth="2" markerEnd="url(#arrow)" fill="none" />
+                    <path d={`M 800 ${Y_P1 + 90} C 800 ${Y_P23 - 40}, 1200 ${Y_P23 - 40}, 1200 ${Y_P23}`} stroke={C.arrow.stroke} {...arrowStyle} markerEnd="url(#arrow)" />
+                    
                     {/* II -> IV */}
-                    <path d="M 290 740 L 290 820" stroke={colors.arrow} strokeWidth="2" markerEnd="url(#arrow)" fill="none" />
-                    {/* III -> IV */}
-                    <path d="M 910 740 L 290 820" stroke={colors.arrow} strokeWidth="2" markerEnd="url(#arrow)" fill="none" />
-                    {/* II -> V */}
-                    <path d="M 290 740 L 910 820" stroke={colors.arrow} strokeWidth="2" markerEnd="url(#arrow)" fill="none" />
+                    <path d={`M 400 ${Y_P23_SUB2 + 36} C 400 ${Y_P45 - 50}, 400 ${Y_P45 - 20}, 400 ${Y_P45}`} stroke={C.arrow.stroke} {...arrowStyle} markerEnd="url(#arrow)" />
                     {/* III -> V */}
-                    <path d="M 910 740 L 910 820" stroke={colors.arrow} strokeWidth="2" markerEnd="url(#arrow)" fill="none" />
+                    <path d={`M 1200 ${Y_P23_SUB2 + 36} C 1200 ${Y_P45 - 50}, 1200 ${Y_P45 - 20}, 1200 ${Y_P45}`} stroke={C.arrow.stroke} {...arrowStyle} markerEnd="url(#arrow)" />
 
-                    {/* GEOMETRIC METHOD */}
-                    <InteractiveGroup transform={`translate(${CANVAS_WIDTH / 2}, 1230)`} onClick={() => handleNodeClick("Geometric Method", "Mos Geometricus")}>
-                        <ellipse cx="0" cy="0" rx="280" ry="60" fill={colors.geometric.fill} stroke={colors.geometric.stroke} strokeWidth="3" />
-                        <text x="0" y="-8" textAnchor="middle" fill={colors.geometric.text} fontSize="20" fontWeight="900" letterSpacing="1">GEOMETRIC METHOD</text>
-                        <text x="0" y="20" textAnchor="middle" fill={colors.geometric.text} fontSize="14" fontWeight="700">Each part follows with mathematical necessity</text>
-                    </InteractiveGroup>
+                    {/* Cross Flows (Interaction) */}
+                    <path d={`M 400 ${Y_P23_SUB2 + 36} C 400 ${Y_P45 - 40}, 1200 ${Y_P45 - 40}, 1200 ${Y_P45}`} stroke={C.part5.stroke} strokeWidth="2.5" fill="none" opacity="0.3" strokeDasharray="6,6" />
+                    <path d={`M 1200 ${Y_P23_SUB2 + 36} C 1200 ${Y_P45 - 40}, 400 ${Y_P45 - 40}, 400 ${Y_P45}`} stroke={C.part4.stroke} strokeWidth="2.5" fill="none" opacity="0.3" strokeDasharray="6,6" />
+
+
+                    {/* --- PART I: OF GOD --- */}
+                    <FlowCard 
+                        x={640} y={Y_P1} width={320} height={90}
+                        title="PART I: OF GOD" subtitle="The Foundation of Being"
+                        fill={C.part1.fill} stroke={C.part1.stroke} textFill={C.part1.text}
+                        onClick={() => handleNodeClick("Part I: Of God", "The foundation of the system")}
+                    />
+                    {/* Sub Items I - Horizontal Row */}
+                    <g>
+                        <SubCard x={300} y={Y_P1_SUB} width={180} text="One Infinite Substance" fill="white" stroke={C.part1.stroke} textFill={C.part1.text} parentX={800} parentY={Y_P1 + 90} onClick={() => handleNodeClick("Substance Monism", "Only one substance")} />
+                        <SubCard x={500} y={Y_P1_SUB} width={180} text="Causa Sui (Self-Caused)" fill="white" stroke={C.part1.stroke} textFill={C.part1.text} parentX={800} parentY={Y_P1 + 90} onClick={() => handleNodeClick("Causa Sui", "Self-caused")} />
+                        <SubCard x={700} y={Y_P1_SUB} width={200} text="Deus sive Natura" fill="white" stroke={C.part1.stroke} textFill={C.part1.text} parentX={800} parentY={Y_P1 + 90} onClick={() => handleNodeClick("Deus sive Natura", "God or Nature")} />
+                        <SubCard x={920} y={Y_P1_SUB} width={180} text="Absolute Determinism" fill="white" stroke={C.part1.stroke} textFill={C.part1.text} parentX={800} parentY={Y_P1 + 90} onClick={() => handleNodeClick("Determinism", "No contingency")} />
+                        <SubCard x={1120} y={Y_P1_SUB} width={180} text="Critique of Teleology" fill="white" stroke={C.part1.stroke} textFill={C.part1.text} parentX={800} parentY={Y_P1 + 90} onClick={() => handleNodeClick("Critique of Teleology", "No final causes")} />
+                    </g>
+
+
+                    {/* --- PART II: THE MIND --- */}
+                    <FlowCard 
+                        x={240} y={Y_P23} width={320} height={90}
+                        title="PART II: THE MIND" subtitle="Nature & Origin of Mind"
+                        fill={C.part2.fill} stroke={C.part2.stroke} textFill={C.part2.text}
+                        onClick={() => handleNodeClick("Part II: Of The Mind", "Epistemology")}
+                    />
+                    {/* Sub Items II */}
+                    <g>
+                        {/* Row 1 */}
+                        <SubCard x={150} y={Y_P23_SUB1} width={160} text="Parallelism (IIP7)" fill="white" stroke={C.part2.stroke} textFill={C.part2.text} parentX={400} parentY={Y_P23 + 90} onClick={() => handleNodeClick("Parallelism", "Order of ideas")} />
+                        <SubCard x={330} y={Y_P23_SUB1} width={160} text="Idea of the Body" fill="white" stroke={C.part2.stroke} textFill={C.part2.text} parentX={400} parentY={Y_P23 + 90} onClick={() => handleNodeClick("Idea of Body", "Mind object")} />
+                        <SubCard x={510} y={Y_P23_SUB1} width={160} text="Imagination (1st)" fill="white" stroke={C.part2.stroke} textFill={C.part2.text} parentX={400} parentY={Y_P23 + 90} onClick={() => handleNodeClick("Imagination", "1st Kind")} />
+                        {/* Row 2 */}
+                        <SubCard x={240} y={Y_P23_SUB2} width={160} text="Reason (2nd Kind)" fill="white" stroke={C.part2.stroke} textFill={C.part2.text} parentX={400} parentY={Y_P23 + 90} onClick={() => handleNodeClick("Reason", "2nd Kind")} />
+                        <SubCard x={420} y={Y_P23_SUB2} width={160} text="Intuition (3rd Kind)" fill="white" stroke={C.part2.stroke} textFill={C.part2.text} parentX={400} parentY={Y_P23 + 90} onClick={() => handleNodeClick("Intuition", "3rd Kind")} />
+                    </g>
+
+
+                    {/* --- PART III: AFFECTS --- */}
+                    <FlowCard 
+                        x={1040} y={Y_P23} width={320} height={90}
+                        title="PART III: AFFECTS" subtitle="Origin & Nature of Emotions"
+                        fill={C.part3.fill} stroke={C.part3.stroke} textFill={C.part3.text}
+                        onClick={() => handleNodeClick("Part III: Affects", "Psychology")}
+                    />
+                    {/* Sub Items III */}
+                    <g>
+                        {/* Row 1 */}
+                        <SubCard x={950} y={Y_P23_SUB1} width={160} text="Conatus (Striving)" fill="white" stroke={C.part3.stroke} textFill={C.part3.text} parentX={1200} parentY={Y_P23 + 90} onClick={() => handleNodeClick("Conatus", "Striving")} />
+                        <SubCard x={1130} y={Y_P23_SUB1} width={160} text="Desire (Cupiditas)" fill="white" stroke={C.part3.stroke} textFill={C.part3.text} parentX={1200} parentY={Y_P23 + 90} onClick={() => handleNodeClick("Desire", "Cupiditas")} />
+                        <SubCard x={1310} y={Y_P23_SUB1} width={160} text="Joy (Laetitia)" fill="white" stroke={C.part3.stroke} textFill={C.part3.text} parentX={1200} parentY={Y_P23 + 90} onClick={() => handleNodeClick("Joy", "Laetitia")} />
+                        {/* Row 2 */}
+                        <SubCard x={1040} y={Y_P23_SUB2} width={160} text="Sadness (Tristitia)" fill="white" stroke={C.part3.stroke} textFill={C.part3.text} parentX={1200} parentY={Y_P23 + 90} onClick={() => handleNodeClick("Sadness", "Tristitia")} />
+                        <SubCard x={1220} y={Y_P23_SUB2} width={160} text="Imitation of Affects" fill="white" stroke={C.part3.stroke} textFill={C.part3.text} parentX={1200} parentY={Y_P23 + 90} onClick={() => handleNodeClick("Imitation of Affects", "Social psychology")} />
+                    </g>
+
+
+                    {/* --- PART IV: BONDAGE --- */}
+                    <FlowCard 
+                        x={240} y={Y_P45} width={320} height={90}
+                        title="PART IV: BONDAGE" subtitle="Strength of the Emotions"
+                        fill={C.part4.fill} stroke={C.part4.stroke} textFill={C.part4.text}
+                        onClick={() => handleNodeClick("Part IV: Bondage", "Human Bondage")}
+                    />
+                    {/* Sub Items IV */}
+                    <g>
+                        {/* Row 1 */}
+                        <SubCard x={150} y={Y_P45_SUB1} width={160} text="Power of Ext. Causes" fill="white" stroke={C.part4.stroke} textFill={C.part4.text} parentX={400} parentY={Y_P45 + 90} onClick={() => handleNodeClick("External Causes", "Power of nature")} />
+                        <SubCard x={330} y={Y_P45_SUB1} width={160} text="Good = Useful" fill="white" stroke={C.part4.stroke} textFill={C.part4.text} parentX={400} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Good is Useful", "IV Def 1")} />
+                        <SubCard x={510} y={Y_P45_SUB1} width={160} text="Virtue = Power" fill="white" stroke={C.part4.stroke} textFill={C.part4.text} parentX={400} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Virtue is Power", "IV Def 8")} />
+                        {/* Row 2 */}
+                        <SubCard x={240} y={Y_P45_SUB2} width={160} text="The Free Man" fill="white" stroke={C.part4.stroke} textFill={C.part4.text} parentX={400} parentY={Y_P45 + 90} onClick={() => handleNodeClick("The Free Man", "Model of nature")} />
+                        <SubCard x={420} y={Y_P45_SUB2} width={160} text="Social Contract" fill="white" stroke={C.part4.stroke} textFill={C.part4.text} parentX={400} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Social Contract", "Society")} />
+                    </g>
+
+
+                    {/* --- PART V: FREEDOM --- */}
+                    <FlowCard 
+                        x={1040} y={Y_P45} width={320} height={90}
+                        title="PART V: FREEDOM" subtitle="Power of the Intellect"
+                        fill={C.part5.fill} stroke={C.part5.stroke} textFill={C.part5.text}
+                        onClick={() => handleNodeClick("Part V: Freedom", "Human Freedom")}
+                    />
+                    {/* Sub Items V */}
+                    <g>
+                        {/* Row 1 */}
+                        <SubCard x={950} y={Y_P45_SUB1} width={160} text="Reason over Affects" fill="white" stroke={C.part5.stroke} textFill={C.part5.text} parentX={1200} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Reason over Affects", "Power of Mind")} />
+                        <SubCard x={1130} y={Y_P45_SUB1} width={160} text="Intellectual Love" fill="white" stroke={C.part5.stroke} textFill={C.part5.text} parentX={1200} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Intellectual Love", "Amor Dei Intellectualis")} />
+                        <SubCard x={1310} y={Y_P45_SUB1} width={160} text="Eternity of Mind" fill="white" stroke={C.part5.stroke} textFill={C.part5.text} parentX={1200} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Eternity of Mind", "Sub specie aeternitatis")} />
+                        {/* Row 2 */}
+                        <SubCard x={1040} y={Y_P45_SUB2} width={160} text="Third Kind of Knowledge" fill="white" stroke={C.part5.stroke} textFill={C.part5.text} parentX={1200} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Third Kind of Knowledge", "Intuition")} />
+                        <SubCard x={1220} y={Y_P45_SUB2} width={160} text="Blessedness" fill="white" stroke={C.part5.stroke} textFill={C.part5.text} parentX={1200} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Blessedness", "Virtue itself")} />
+                    </g>
+
+
+                    {/* --- TRANSFORMATION ARROW --- */}
+                    <path d={`M 570 ${Y_P45 + 45} C 670 ${Y_P45 + 45}, 930 ${Y_P45 + 45}, 1030 ${Y_P45 + 45}`} stroke={C.part5.stroke} strokeWidth="3" markerEnd="url(#arrow)" opacity="0.5" />
+                    <text x="800" y={Y_P45 + 35} textAnchor="middle" fill={C.part5.stroke} fontSize="17" fontWeight="800" letterSpacing="1">TRANSFORMATION</text>
 
                 </svg>
             </div>

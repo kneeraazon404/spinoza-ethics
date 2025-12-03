@@ -1,6 +1,26 @@
 import React from 'react';
 import { useSpinoza } from '@/context/SpinozaContext';
 
+interface InteractiveGroupProps {
+    transform?: string;
+    onClick?: () => void;
+    children: React.ReactNode;
+    className?: string;
+}
+
+const InteractiveGroup = ({ transform, onClick, children, className = "" }: InteractiveGroupProps) => (
+    <g
+        transform={transform}
+        onClick={onClick}
+        className={`cursor-pointer ${className}`}
+        style={{ pointerEvents: 'all' }}
+    >
+        <g className="transition-all duration-300 ease-out hover:-translate-y-1 hover:drop-shadow-xl">
+            {children}
+        </g>
+    </g>
+);
+
 const ParallelismDiagram = () => {
     const { explainConcept } = useSpinoza();
 
@@ -8,184 +28,216 @@ const ParallelismDiagram = () => {
         explainConcept(title, context);
     };
 
-    const colors = {
-        bg: "#f8fafc",
-        text: { main: "#1e293b", sub: "#475569", light: "#94a3b8" },
-        thought: { fill: "#e0e7ff", stroke: "#4338ca", text: "#312e81" },
-        extension: { fill: "#ffe4e6", stroke: "#be123c", text: "#881337" },
-        substance: { fill: "#f3e8ff", stroke: "#7e22ce", text: "#581c87" },
-        neutral: { fill: "#f1f5f9", stroke: "#94a3b8", text: "#475569" },
-        parallelism: { stroke: "#ec4899", text: "#be185d", fill: "#fce7f3" }
-    };
-
     const CANVAS_WIDTH = 1400;
     const CANVAS_HEIGHT = 1100;
-    const COLUMN_WIDTH = 480;
 
-    interface InteractiveGroupProps {
-        transform?: string;
-        onClick?: () => void;
-        children: React.ReactNode;
-        className?: string;
-    }
-
-    const InteractiveGroup = ({ transform, onClick, children, className = "" }: InteractiveGroupProps) => (
-        <g
-            transform={transform}
-            onClick={onClick}
-            className={`cursor-pointer transition-all duration-300 hover:opacity-75 ${className}`}
-            style={{ pointerEvents: 'all' }}
-        >
-            {children}
-        </g>
-    );
+    // Palette consistent with Hierarchy
+    const C = {
+        substance: { stroke: "#a855f7", fill: "#f3e8ff", text: "#6b21a8" }, // Purple
+        thought: { stroke: "#4f46e5", fill: "#e0e7ff", text: "#312e81" },   // Indigo
+        extension: { stroke: "#db2777", fill: "#fce7f3", text: "#831843" }, // Pink
+        text: { primary: "#1f2937", secondary: "#4b5563", muted: "#94a3b8" },
+        bg: "#ffffff",
+    };
 
     return (
-        <div className="w-full min-h-screen bg-slate-50 relative font-sans overflow-hidden">
+        <div className="w-full min-h-[1100px] relative font-sans overflow-hidden" style={{ backgroundColor: C.bg }}>
             {/* HEADER */}
-            <div className="absolute top-6 left-8 z-10 pointer-events-none">
-                <h2 className="text-slate-400 text-sm font-semibold tracking-widest uppercase mb-1.5">
-                    Ethica: Ordo et Connexio
+            <div className="absolute top-2 left-10 z-10 pointer-events-none">
+                <h2 className="text-slate-400 text-sm font-bold tracking-widest uppercase mb-1">
+                    ETHICA ORDINE GEOMETRICO DEMONSTRATA
                 </h2>
-                <h3 className="text-slate-300 text-xs font-medium tracking-wider uppercase">
-                    / Mind-Body Parallelism: One Thing, Two Ways
+                <h3 className="text-slate-300 text-xs font-semibold tracking-wider uppercase">
+                    / MIND-BODY PARALLELISM
                 </h3>
             </div>
 
-            <div className="w-full max-w-[1600px] mx-auto aspect-[14/11] relative px-4">
-                <svg viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`} preserveAspectRatio="xMidYMid meet" className="w-full h-full">
+            <div className="w-full max-w-[1600px] mx-auto aspect-auto relative px-4 mt-2">
+                <svg viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`} className="w-full h-auto min-h-[1100px]">
                     <defs>
-                        <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                            <path d="M0,0 L6,3 L0,6 L0,0" fill={colors.text.light} />
+                        {/* Grid Pattern */}
+                        <pattern id="globalGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" strokeWidth="1" />
+                        </pattern>
+
+                        {/* Soft Shadow */}
+                        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+                            <feOffset dx="2" dy="3" result="offsetblur" />
+                            <feComponentTransfer>
+                                <feFuncA type="linear" slope="0.1" />
+                            </feComponentTransfer>
+                            <feMerge>
+                                <feMergeNode />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+
+                        {/* Gradients */}
+                        <linearGradient id="gradThought" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor={C.thought.fill} />
+                            <stop offset="100%" stopColor="#c7d2fe" />
+                        </linearGradient>
+                        <linearGradient id="gradExtension" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor={C.extension.fill} />
+                            <stop offset="100%" stopColor="#fbcfe8" />
+                        </linearGradient>
+                        <linearGradient id="gradParallel" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#fce7f3" />
+                            <stop offset="100%" stopColor="#fbcfe8" />
+                        </linearGradient>
+                        <linearGradient id="gradSubstance" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor={C.substance.fill} />
+                            <stop offset="100%" stopColor="#e9d5ff" />
+                        </linearGradient>
+
+                        <marker id="arrowThought" markerWidth="5" markerHeight="3" refX="4" refY="1.5" orient="auto">
+                            <path d="M0,0 L5,1.5 L0,3 L0,0" fill={C.thought.stroke} />
                         </marker>
-                        <marker id="arrowThought" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                            <path d="M0,0 L6,3 L0,6 L0,0" fill={colors.thought.stroke} />
+                        <marker id="arrowExtension" markerWidth="5" markerHeight="3" refX="4" refY="1.5" orient="auto">
+                            <path d="M0,0 L5,1.5 L0,3 L0,0" fill={C.extension.stroke} />
                         </marker>
-                        <marker id="arrowExtension" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                            <path d="M0,0 L6,3 L0,6 L0,0" fill={colors.extension.stroke} />
+                        <marker id="arrowParallel" markerWidth="5" markerHeight="3" refX="4" refY="1.5" orient="auto">
+                            <path d="M0,0 L5,1.5 L0,3 L0,0" fill="#ec4899" />
                         </marker>
                     </defs>
 
-                    {/* Substance at Top */}
-                    <InteractiveGroup onClick={() => handleNodeClick("Substance", "God or Nature")}>
-                        <ellipse cx={CANVAS_WIDTH / 2} cy="80" rx="240" ry="70" fill={colors.substance.fill} stroke={colors.substance.stroke} strokeWidth="4" />
-                        <text x={CANVAS_WIDTH / 2} y="75" textAnchor="middle" fontSize="28" fontWeight="900" fill={colors.substance.text} letterSpacing="1.5">
-                            SUBSTANCE
-                        </text>
-                        <text x={CANVAS_WIDTH / 2} y="105" textAnchor="middle" fontSize="16" fill={colors.substance.text} fontWeight="600" fontStyle="italic">
-                            One Infinite Reality
-                        </text>
-                    </InteractiveGroup>
+                    {/* Background Grid */}
+                    <rect width="100%" height="100%" fill="url(#globalGrid)" />
 
-                    {/* Attributes */}
-                    <line x1={CANVAS_WIDTH / 2} y1="150" x2="340" y2="220" stroke={colors.text.light} strokeWidth="2" markerEnd="url(#arrow)" />
-                    <line x1={CANVAS_WIDTH / 2} y1="150" x2="1060" y2="220" stroke={colors.text.light} strokeWidth="2" markerEnd="url(#arrow)" />
+                    {/* --- SUBSTANCE (Top) --- */}
+                    <g transform="translate(700, 100)">
+                        {/* Connectors to Attributes */}
+                        <path d="M 0 60 C 0 100, -350 100, -350 140" stroke={C.substance.stroke} strokeWidth="4" fill="none" opacity="0.8" />
+                        <path d="M 0 60 C 0 100, 350 100, 350 140" stroke={C.substance.stroke} strokeWidth="4" fill="none" opacity="0.8" />
 
-                    <InteractiveGroup transform="translate(100, 220)" onClick={() => handleNodeClick("Attribute of Thought", "Mental expression of substance")}>
-                        <rect width={COLUMN_WIDTH} height="120" rx="8" fill={colors.thought.fill} stroke={colors.thought.stroke} strokeWidth="4" />
-                        <text x={COLUMN_WIDTH / 2} y="50" textAnchor="middle" fontSize="24" fontWeight="900" fill={colors.thought.text} letterSpacing="1">ATTRIBUTE OF THOUGHT</text>
-                        <text x={COLUMN_WIDTH / 2} y="80" textAnchor="middle" fontSize="16" fill={colors.thought.text} fontWeight="600">GOD as Thinking Thing</text>
-                    </InteractiveGroup>
+                        <InteractiveGroup onClick={() => handleNodeClick("Substance", "God or Nature")}>
+                            <rect x="-220" y="-60" width="440" height="120" rx="8" fill="url(#gradSubstance)" stroke={C.substance.stroke} strokeWidth="3" filter="url(#softShadow)" />
+                            <text y="-10" textAnchor="middle" fill={C.substance.text} fontSize="20" fontWeight="900" letterSpacing="1">SUBSTANCE</text>
+                            <text y="20" textAnchor="middle" fill={C.substance.text} fontSize="16" fontWeight="600" fontStyle="italic">One Infinite Reality</text>
+                        </InteractiveGroup>
+                    </g>
 
-                    <InteractiveGroup transform="translate(820, 220)" onClick={() => handleNodeClick("Attribute of Extension", "Physical expression of substance")}>
-                        <rect width={COLUMN_WIDTH} height="120" rx="8" fill={colors.extension.fill} stroke={colors.extension.stroke} strokeWidth="4" />
-                        <text x={COLUMN_WIDTH / 2} y="50" textAnchor="middle" fontSize="24" fontWeight="900" fill={colors.extension.text} letterSpacing="1">ATTRIBUTE OF EXTENSION</text>
-                        <text x={COLUMN_WIDTH / 2} y="80" textAnchor="middle" fontSize="16" fill={colors.extension.text} fontWeight="600">GOD as Extended Thing</text>
-                    </InteractiveGroup>
+                    {/* Left Column: Thought */}
+                    <g transform="translate(150, 240)">
+                        <rect width="400" height="750" rx="8" fill={C.thought.fill} stroke={C.thought.stroke} strokeWidth="2" fillOpacity="0.3" />
+                        <text x="200" y="40" textAnchor="middle" fill={C.thought.text} fontSize="14" fontWeight="900" letterSpacing="2" opacity="0.6">ATTRIBUTE OF THOUGHT</text>
 
-                    {/* Infinite Modes */}
-                    <line x1="340" y1="340" x2="340" y2="400" stroke={colors.thought.stroke} strokeWidth="2" markerEnd="url(#arrowThought)" />
-                    <line x1="1060" y1="340" x2="1060" y2="400" stroke={colors.extension.stroke} strokeWidth="2" markerEnd="url(#arrowExtension)" />
+                        {/* God as Thinking Thing */}
+                        <InteractiveGroup transform="translate(200, 100)" onClick={() => handleNodeClick("God as Thinking Thing", "Substance under the attribute of thought")}>
+                            <rect x="-160" y="-40" width="320" height="80" rx="6" fill="url(#gradThought)" stroke={C.thought.stroke} strokeWidth="3" filter="url(#softShadow)" />
+                            <text y="5" textAnchor="middle" fill={C.thought.text} fontSize="20" fontWeight="900" letterSpacing="0.5">GOD as Thinking Thing</text>
+                        </InteractiveGroup>
 
-                    <InteractiveGroup transform="translate(160, 400)" onClick={() => handleNodeClick("Infinite Intellect", "Infinite mode of thought")}>
-                        <rect width="360" height="80" rx="6" fill="white" stroke={colors.thought.stroke} strokeWidth="2" strokeDasharray="8,4" />
-                        <text x="180" y="35" textAnchor="middle" fontSize="18" fontWeight="800" fill={colors.thought.text}>Infinite Immediate Mode</text>
-                        <text x="180" y="58" textAnchor="middle" fontSize="14" fill={colors.thought.text}>(Infinite Intellect, Laws of Thought)</text>
-                    </InteractiveGroup>
+                        <path d="M 200 140 C 200 155, 200 165, 200 180" stroke={C.thought.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowThought)" fill="none" />
 
-                    <InteractiveGroup transform="translate(880, 400)" onClick={() => handleNodeClick("Motion and Rest", "Infinite mode of extension")}>
-                        <rect width="360" height="80" rx="6" fill="white" stroke={colors.extension.stroke} strokeWidth="2" strokeDasharray="8,4" />
-                        <text x="180" y="35" textAnchor="middle" fontSize="18" fontWeight="800" fill={colors.extension.text}>Infinite Immediate Mode</text>
-                        <text x="180" y="58" textAnchor="middle" fontSize="14" fill={colors.extension.text}>(Motion & Rest, Laws of Physics)</text>
-                    </InteractiveGroup>
+                        {/* Infinite Mode */}
+                        <InteractiveGroup transform="translate(200, 220)" onClick={() => handleNodeClick("Infinite Intellect", "Immediate infinite mode of thought")}>
+                            <rect x="-140" y="-40" width="280" height="80" rx="6" fill="white" stroke={C.thought.stroke} strokeWidth="2" strokeDasharray="8,5" filter="url(#softShadow)" />
+                            <text y="-5" textAnchor="middle" fill={C.thought.text} fontSize="16" fontWeight="800">Infinite Immediate Mode</text>
+                            <text y="20" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="400" fontStyle="italic">(Infinite Intellect, Laws of Thought)</text>
+                        </InteractiveGroup>
 
-                    {/* Causal Chains */}
-                    <line x1="340" y1="480" x2="340" y2="540" stroke={colors.thought.stroke} strokeWidth="2" markerEnd="url(#arrowThought)" />
-                    <line x1="1060" y1="480" x2="1060" y2="540" stroke={colors.extension.stroke} strokeWidth="2" markerEnd="url(#arrowExtension)" />
+                        <path d="M 200 260 C 200 275, 200 285, 200 300" stroke={C.thought.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowThought)" fill="none" />
 
-                    <InteractiveGroup transform="translate(160, 540)" onClick={() => handleNodeClick("Causal Chains of Ideas", "Mediate infinite mode of thought")}>
-                        <rect width="360" height="60" rx="6" fill={colors.thought.fill} stroke={colors.thought.stroke} strokeWidth="2" />
-                        <text x="180" y="35" textAnchor="middle" fontSize="16" fontWeight="700" fill={colors.thought.text}>Causal Chains of Ideas</text>
-                    </InteractiveGroup>
+                        {/* Causal Chains */}
+                        <InteractiveGroup transform="translate(200, 340)" onClick={() => handleNodeClick("Chain of Ideas", "Order and connection of ideas")}>
+                            <rect x="-140" y="-30" width="280" height="60" rx="6" fill="white" stroke={C.thought.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <text y="5" textAnchor="middle" fill={C.thought.text} fontSize="14" fontWeight="800">Causal Chains of Ideas</text>
+                        </InteractiveGroup>
 
-                    <InteractiveGroup transform="translate(880, 540)" onClick={() => handleNodeClick("Causal Chains of Bodies", "Mediate infinite mode of extension")}>
-                        <rect width="360" height="60" rx="6" fill={colors.extension.fill} stroke={colors.extension.stroke} strokeWidth="2" />
-                        <text x="180" y="35" textAnchor="middle" fontSize="16" fontWeight="700" fill={colors.extension.text}>Causal Chains of Bodies</text>
-                    </InteractiveGroup>
+                        <path d="M 200 370 C 200 385, 200 395, 200 410" stroke={C.thought.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowThought)" fill="none" />
 
-                    {/* Finite Modes */}
-                    <line x1="340" y1="600" x2="340" y2="660" stroke={colors.thought.stroke} strokeWidth="2" markerEnd="url(#arrowThought)" />
-                    <line x1="1060" y1="600" x2="1060" y2="660" stroke={colors.extension.stroke} strokeWidth="2" markerEnd="url(#arrowExtension)" />
+                        {/* Finite Ideas */}
+                        <InteractiveGroup transform="translate(200, 460)" onClick={() => handleNodeClick("Finite Ideas", "Individual thoughts")}>
+                            <rect x="-140" y="-40" width="280" height="80" rx="8" fill="white" stroke={C.thought.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <text y="-15" textAnchor="middle" fill={C.thought.text} fontSize="16" fontWeight="800">Finite Ideas</text>
+                            <text y="10" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="600">Idea₁ → Idea₂ → Idea₃ → ...</text>
+                            <text y="25" textAnchor="middle" fill={C.thought.text} fontSize="10" fontStyle="italic">Mental causation complete within thought</text>
+                        </InteractiveGroup>
 
-                    <InteractiveGroup transform="translate(100, 660)" onClick={() => handleNodeClick("Finite Modes of Thought", "Individual ideas")}>
-                        <rect width={COLUMN_WIDTH} height="120" rx="8" fill={colors.thought.fill} stroke={colors.thought.stroke} strokeWidth="3" />
-                        <text x={COLUMN_WIDTH / 2} y="35" textAnchor="middle" fontSize="20" fontWeight="900" fill={colors.thought.text}>Finite Ideas</text>
-                        <text x={COLUMN_WIDTH / 2} y="60" textAnchor="middle" fontSize="14" fill={colors.thought.text}>Idea₁ → Idea₂ → Idea₃ → ...</text>
-                        <text x={COLUMN_WIDTH / 2} y="85" textAnchor="middle" fontSize="14" fill={colors.thought.text} fontStyle="italic">Mental causation complete within thought</text>
-                    </InteractiveGroup>
+                        <path d="M 200 500 C 200 520, 200 540, 200 560" stroke={C.thought.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowThought)" fill="none" />
 
-                    <InteractiveGroup transform="translate(820, 660)" onClick={() => handleNodeClick("Finite Modes of Extension", "Individual bodies")}>
-                        <rect width={COLUMN_WIDTH} height="120" rx="8" fill={colors.extension.fill} stroke={colors.extension.stroke} strokeWidth="3" />
-                        <text x={COLUMN_WIDTH / 2} y="35" textAnchor="middle" fontSize="20" fontWeight="900" fill={colors.extension.text}>Finite Bodies</text>
-                        <text x={COLUMN_WIDTH / 2} y="60" textAnchor="middle" fontSize="14" fill={colors.extension.text}>Body₁ → Body₂ → Body₃ → ...</text>
-                        <text x={COLUMN_WIDTH / 2} y="85" textAnchor="middle" fontSize="14" fill={colors.extension.text} fontStyle="italic">Physical causation complete within extension</text>
-                    </InteractiveGroup>
+                        {/* Human Mind */}
+                        <InteractiveGroup transform="translate(200, 620)" onClick={() => handleNodeClick("Human Mind", "Idea of the Body")}>
+                            <rect x="-160" y="-60" width="320" height="120" rx="8" fill="url(#gradThought)" stroke={C.thought.stroke} strokeWidth="3" filter="url(#softShadow)" />
+                            <text y="-20" textAnchor="middle" fill={C.thought.text} fontSize="20" fontWeight="900" letterSpacing="1">HUMAN MIND</text>
+                            <text y="10" textAnchor="middle" fill={C.thought.text} fontSize="14" fontWeight="800">= Idea of Human Body</text>
+                            <text y="35" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="500">• Adequate Ideas (actions)</text>
+                            <text y="55" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="500">• Inadequate Ideas (passions)</text>
+                        </InteractiveGroup>
+                    </g>
 
-                    {/* Human Mind/Body */}
-                    <line x1="340" y1="780" x2="340" y2="840" stroke={colors.thought.stroke} strokeWidth="2" markerEnd="url(#arrowThought)" />
-                    <line x1="1060" y1="780" x2="1060" y2="840" stroke={colors.extension.stroke} strokeWidth="2" markerEnd="url(#arrowExtension)" />
+                    {/* Right Column: Extension */}
+                    <g transform="translate(850, 240)">
+                        <rect width="400" height="750" rx="8" fill={C.extension.fill} stroke={C.extension.stroke} strokeWidth="2" fillOpacity="0.3" />
+                        <text x="200" y="40" textAnchor="middle" fill={C.extension.text} fontSize="14" fontWeight="900" letterSpacing="2" opacity="0.6">ATTRIBUTE OF EXTENSION</text>
 
-                    <InteractiveGroup transform="translate(100, 840)" onClick={() => handleNodeClick("Human Mind", "Idea of the body")}>
-                        <rect width={COLUMN_WIDTH} height="160" rx="8" fill={colors.thought.stroke} stroke={colors.thought.text} strokeWidth="4" />
-                        <text x={COLUMN_WIDTH / 2} y="45" textAnchor="middle" fontSize="24" fontWeight="900" fill="white" letterSpacing="1">HUMAN MIND</text>
-                        <text x={COLUMN_WIDTH / 2} y="75" textAnchor="middle" fontSize="16" fill="white" fontWeight="600">= Idea of Human Body</text>
-                        <text x={COLUMN_WIDTH / 2} y="105" textAnchor="middle" fontSize="14" fill="white">• Adequate Ideas (actions)</text>
-                        <text x={COLUMN_WIDTH / 2} y="125" textAnchor="middle" fontSize="14" fill="white">• Inadequate Ideas (passions)</text>
-                    </InteractiveGroup>
+                        {/* God as Extended Thing */}
+                        <InteractiveGroup transform="translate(200, 100)" onClick={() => handleNodeClick("God as Extended Thing", "Substance under the attribute of extension")}>
+                            <rect x="-160" y="-40" width="320" height="80" rx="6" fill="url(#gradExtension)" stroke={C.extension.stroke} strokeWidth="3" filter="url(#softShadow)" />
+                            <text y="5" textAnchor="middle" fill={C.extension.text} fontSize="20" fontWeight="900" letterSpacing="0.5">GOD as Extended Thing</text>
+                        </InteractiveGroup>
 
-                    <InteractiveGroup transform="translate(820, 840)" onClick={() => handleNodeClick("Human Body", "Physical object")}>
-                        <rect width={COLUMN_WIDTH} height="160" rx="8" fill={colors.extension.stroke} stroke={colors.extension.text} strokeWidth="4" />
-                        <text x={COLUMN_WIDTH / 2} y="45" textAnchor="middle" fontSize="24" fontWeight="900" fill="white" letterSpacing="1">HUMAN BODY</text>
-                        <text x={COLUMN_WIDTH / 2} y="75" textAnchor="middle" fontSize="16" fill="white" fontWeight="600">= Complex Physical Individual</text>
-                        <text x={COLUMN_WIDTH / 2} y="105" textAnchor="middle" fontSize="14" fill="white">• Body's affections</text>
-                        <text x={COLUMN_WIDTH / 2} y="125" textAnchor="middle" fontSize="14" fill="white">• Physical states & motions</text>
-                    </InteractiveGroup>
+                        <path d="M 200 140 C 200 155, 200 165, 200 180" stroke={C.extension.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowExtension)" fill="none" />
+
+                        {/* Infinite Mode */}
+                        <InteractiveGroup transform="translate(200, 220)" onClick={() => handleNodeClick("Motion and Rest", "Immediate infinite mode of extension")}>
+                            <rect x="-140" y="-40" width="280" height="80" rx="6" fill="white" stroke={C.extension.stroke} strokeWidth="2" strokeDasharray="8,5" filter="url(#softShadow)" />
+                            <text y="-5" textAnchor="middle" fill={C.extension.text} fontSize="16" fontWeight="800">Infinite Immediate Mode</text>
+                            <text y="20" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="400" fontStyle="italic">(Motion & Rest, Laws of Physics)</text>
+                        </InteractiveGroup>
+
+                        <path d="M 200 260 C 200 275, 200 285, 200 300" stroke={C.extension.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowExtension)" fill="none" />
+
+                        {/* Causal Chains */}
+                        <InteractiveGroup transform="translate(200, 340)" onClick={() => handleNodeClick("Chain of Bodies", "Order and connection of things")}>
+                            <rect x="-140" y="-30" width="280" height="60" rx="6" fill="white" stroke={C.extension.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <text y="5" textAnchor="middle" fill={C.extension.text} fontSize="14" fontWeight="800">Causal Chains of Bodies</text>
+                        </InteractiveGroup>
+
+                        <path d="M 200 370 C 200 385, 200 395, 200 410" stroke={C.extension.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowExtension)" fill="none" />
+
+                        {/* Finite Bodies */}
+                        <InteractiveGroup transform="translate(200, 460)" onClick={() => handleNodeClick("Finite Bodies", "Individual physical things")}>
+                            <rect x="-140" y="-40" width="280" height="80" rx="8" fill="white" stroke={C.extension.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <text y="-15" textAnchor="middle" fill={C.extension.text} fontSize="16" fontWeight="800">Finite Bodies</text>
+                            <text y="10" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="600">Body₁ → Body₂ → Body₃ → ...</text>
+                            <text y="25" textAnchor="middle" fill={C.extension.text} fontSize="10" fontStyle="italic">Physical causation complete within extension</text>
+                        </InteractiveGroup>
+
+                        <path d="M 200 500 C 200 520, 200 540, 200 560" stroke={C.extension.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowExtension)" fill="none" />
+
+                        {/* Human Body */}
+                        <InteractiveGroup transform="translate(200, 620)" onClick={() => handleNodeClick("Human Body", "Complex physical individual")}>
+                            <rect x="-160" y="-60" width="320" height="120" rx="8" fill="url(#gradExtension)" stroke={C.extension.stroke} strokeWidth="3" filter="url(#softShadow)" />
+                            <text y="-20" textAnchor="middle" fill={C.extension.text} fontSize="20" fontWeight="900" letterSpacing="1">HUMAN BODY</text>
+                            <text y="10" textAnchor="middle" fill={C.extension.text} fontSize="14" fontWeight="800">= Complex Physical Individual</text>
+                            <text y="35" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="500">• Body&apos;s affections</text>
+                            <text y="55" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="500">• Physical states & motions</text>
+                        </InteractiveGroup>
+                    </g>
 
                     {/* Parallelism Connection */}
-                    <line x1="580" y1="280" x2="820" y2="280" stroke={colors.parallelism.stroke} strokeWidth="2" strokeDasharray="8,4" opacity="0.6" />
-                    <line x1="520" y1="440" x2="880" y2="440" stroke={colors.parallelism.stroke} strokeWidth="2" strokeDasharray="8,4" opacity="0.6" />
-                    <line x1="520" y1="570" x2="880" y2="570" stroke={colors.parallelism.stroke} strokeWidth="2" strokeDasharray="8,4" opacity="0.6" />
-                    <line x1="580" y1="720" x2="820" y2="720" stroke={colors.parallelism.stroke} strokeWidth="2" strokeDasharray="8,4" opacity="0.6" />
-
-                    {/* Main parallelism arrow */}
-                    <line x1="580" y1="920" x2="820" y2="920" stroke={colors.parallelism.stroke} strokeWidth="4" strokeDasharray="12,6" />
-                    <circle cx="580" cy="920" r="8" fill={colors.parallelism.stroke} />
-                    <circle cx="820" cy="920" r="8" fill={colors.parallelism.stroke} />
-
-                    {/* Central explanation */}
-                    <rect x="580" y="900" width="240" height="40" rx="6" fill={colors.parallelism.stroke} />
-                    <text x="700" y="925" textAnchor="middle" fontSize="16" fontWeight="900" fill="white" letterSpacing="1">PARALLELISM</text>
-
-                    <text x="700" y="960" textAnchor="middle" fontSize="14" fill={colors.text.main} fontWeight="700">One thing, two ways (IIP7)</text>
-
-                    {/* No Causal Interaction */}
-                    <g transform="translate(700, 660)">
-                        <circle r="35" fill="white" stroke={colors.parallelism.stroke} strokeWidth="2" />
-                        <line x1="-22" y1="-22" x2="22" y2="22" stroke={colors.parallelism.stroke} strokeWidth="3" />
-                        <line x1="22" y1="-22" x2="-22" y2="22" stroke={colors.parallelism.stroke} strokeWidth="3" />
-                        <text x="0" y="55" textAnchor="middle" fontSize="12" fill={colors.parallelism.text} fontWeight="800">NO CAUSAL</text>
-                        <text x="0" y="70" textAnchor="middle" fontSize="12" fill={colors.parallelism.text} fontWeight="800">INTERACTION</text>
+                    <g transform="translate(700, 860)">
+                        <path d="M -120 0 L 120 0" stroke="#ec4899" strokeWidth="4" strokeDasharray="8 4" markerStart="url(#arrowParallel)" markerEnd="url(#arrowParallel)" />
+                        <InteractiveGroup transform="translate(0, 0)" onClick={() => handleNodeClick("Parallelism", "IIP7: The order and connection of ideas is the same as the order and connection of things.")}>
+                            <rect x="-80" y="-20" width="160" height="40" rx="6" fill="url(#gradParallel)" stroke="#ec4899" strokeWidth="2" filter="url(#softShadow)" />
+                            <text y="5" textAnchor="middle" fill="#831843" fontSize="14" fontWeight="900" letterSpacing="1">PARALLELISM</text>
+                        </InteractiveGroup>
                     </g>
+
+                    <text x="700" y="1045" textAnchor="middle" fill="#64748b" fontSize="12" fontWeight="500" fontStyle="italic" letterSpacing="0.5">
+                        &ldquo;The order and connection of ideas is the same as the order and connection of things.&rdquo;
+                    </text>
+
+                    {/* Footer */}
+                    <g transform="translate(700, 1080)">
+                        <text y="5" textAnchor="middle" fill="#94a3b8" fontSize="16" fontWeight="600">
+                            IP14: Besides God, no substance • IP15: Whatever is, is in God • IIP7: Order of ideas = Order of things
+                        </text>
+                    </g>
+
                 </svg>
             </div>
         </div>
