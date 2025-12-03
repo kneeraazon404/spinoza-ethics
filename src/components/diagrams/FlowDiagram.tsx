@@ -51,7 +51,7 @@ interface SubCardProps {
 const FlowCard = ({ x, y, width, height, title, subtitle, fill, stroke, textFill, onClick }: FlowCardProps) => (
     <InteractiveGroup transform={`translate(${x}, ${y})`} onClick={onClick}>
         <rect width={width} height={height} rx="8" fill={fill} stroke={stroke} strokeWidth="3" filter="url(#softShadow)" />
-        <text x={width / 2} y={35} textAnchor="middle" fill={textFill} fontSize="20" fontWeight="900" letterSpacing="0.5">
+        <text x={width / 2} y={35} textAnchor="middle" fill={textFill} fontSize="20" fontWeight="800" letterSpacing="0.5">
             {title}
         </text>
         <text x={width / 2} y={60} textAnchor="middle" fill={textFill} fontSize="16" fontWeight="500" fontStyle="italic" opacity="0.9">
@@ -64,14 +64,14 @@ const FlowCard = ({ x, y, width, height, title, subtitle, fill, stroke, textFill
 const SubCard = ({ x, y, width, text, fill, stroke, textFill, parentX, parentY, onClick }: SubCardProps) => (
     <g>
         {/* Curved Connector from parent center bottom to subcard top center */}
-        <path 
-            d={`M ${parentX} ${parentY} C ${parentX} ${y - 15}, ${x + width/2} ${parentY + 15}, ${x + width/2} ${y}`} 
-            stroke={stroke} 
-            strokeWidth="2" 
-            opacity="0.4" 
-            fill="none" 
+        <path
+            d={`M ${parentX} ${parentY} C ${parentX} ${y - 15}, ${x + width / 2} ${parentY + 15}, ${x + width / 2} ${y}`}
+            stroke={stroke}
+            strokeWidth="2"
+            opacity="0.4"
+            fill="none"
         />
-        
+
         <InteractiveGroup transform={`translate(${x}, ${y})`} onClick={onClick}>
             <rect width={width} height={36} rx="6" fill={fill} stroke={stroke} strokeWidth="1.5" />
             <text x={width / 2} y={23} textAnchor="middle" fill={textFill} fontSize="15" fontWeight="600">
@@ -119,12 +119,12 @@ const FlowDiagram = () => {
     return (
         <div className="w-full min-h-[950px] relative font-sans overflow-auto" style={{ backgroundColor: C.bg }}>
             {/* HEADER */}
-            <div className="absolute top-2 left-10 z-10 pointer-events-none">
-                <h2 className="text-slate-400 text-sm font-bold tracking-widest uppercase mb-1.5">
+            <div className="absolute top-4 left-8 z-10 pointer-events-none">
+                <h2 className="text-slate-400 text-sm font-semibold tracking-widest uppercase mb-1.5">
                     ETHICA ORDINE GEOMETRICO DEMONSTRATA
                 </h2>
-                <h3 className="text-slate-300 text-xs font-semibold tracking-wider uppercase">
-                    / THE COMPLETE ARGUMENT FLOW
+                <h3 className="text-slate-300 text-xs font-medium tracking-wider uppercase">
+                    / THE FIVE PARTS
                 </h3>
             </div>
 
@@ -147,26 +147,32 @@ const FlowDiagram = () => {
                             <stop offset="100%" stopColor="#e2e8f0" />
                         </linearGradient>
 
-                        {/* Smaller, Thinner Arrowhead */}
+                        {/* Standardized Arrowheads (5x3) */}
                         <marker id="arrow" markerWidth="5" markerHeight="3" refX="4" refY="1.5" orient="auto">
                             <path d="M0,0 L5,1.5 L0,3 L0,0" fill={C.arrow.stroke} />
+                        </marker>
+                        <marker id="arrowGreen" markerWidth="5" markerHeight="3" refX="4" refY="1.5" orient="auto">
+                            <path d="M0,0 L5,1.5 L0,3 L0,0" fill={C.part5.stroke} />
+                        </marker>
+                        <marker id="arrowOrange" markerWidth="5" markerHeight="3" refX="4" refY="1.5" orient="auto">
+                            <path d="M0,0 L5,1.5 L0,3 L0,0" fill={C.part4.stroke} />
                         </marker>
                     </defs>
 
                     <rect width="100%" height="100%" fill="url(#globalGrid)" />
 
                     {/* --- ONTOLOGY HEADERS --- */}
-                    <text x="400" y={Y_HEADER} textAnchor="middle" fill={C.part1.stroke} fontSize="16" fontWeight="900" letterSpacing="3" opacity="0.8">SUBSTANCE</text>
-                    <text x="800" y={Y_HEADER} textAnchor="middle" fill="#64748b" fontSize="16" fontWeight="900" letterSpacing="3" opacity="0.8">ATTRIBUTES</text>
-                    <text x="1200" y={Y_HEADER} textAnchor="middle" fill={C.part3.stroke} fontSize="16" fontWeight="900" letterSpacing="3" opacity="0.8">MODES</text>
+                    <text x="400" y={Y_HEADER} textAnchor="middle" fill={C.part1.stroke} fontSize="16" fontWeight="800" letterSpacing="3" opacity="0.8">SUBSTANCE</text>
+                    <text x="800" y={Y_HEADER} textAnchor="middle" fill="#64748b" fontSize="16" fontWeight="800" letterSpacing="3" opacity="0.8">ATTRIBUTES</text>
+                    <text x="1200" y={Y_HEADER} textAnchor="middle" fill={C.part3.stroke} fontSize="16" fontWeight="800" letterSpacing="3" opacity="0.8">MODES</text>
 
                     {/* --- MAIN FLOW CONNECTIONS (Curved Bezier - Bolder) --- */}
-                    
+
                     {/* I -> II */}
                     <path d={`M 800 ${Y_P1 + 90} C 800 ${Y_P23 - 40}, 400 ${Y_P23 - 40}, 400 ${Y_P23}`} stroke={C.arrow.stroke} {...arrowStyle} markerEnd="url(#arrow)" />
                     {/* I -> III */}
                     <path d={`M 800 ${Y_P1 + 90} C 800 ${Y_P23 - 40}, 1200 ${Y_P23 - 40}, 1200 ${Y_P23}`} stroke={C.arrow.stroke} {...arrowStyle} markerEnd="url(#arrow)" />
-                    
+
                     {/* II -> IV */}
                     <path d={`M 400 ${Y_P23_SUB2 + 36} C 400 ${Y_P45 - 50}, 400 ${Y_P45 - 20}, 400 ${Y_P45}`} stroke={C.arrow.stroke} {...arrowStyle} markerEnd="url(#arrow)" />
                     {/* III -> V */}
@@ -178,7 +184,7 @@ const FlowDiagram = () => {
 
 
                     {/* --- PART I: OF GOD --- */}
-                    <FlowCard 
+                    <FlowCard
                         x={640} y={Y_P1} width={320} height={90}
                         title="PART I: OF GOD" subtitle="The Foundation of Being"
                         fill={C.part1.fill} stroke={C.part1.stroke} textFill={C.part1.text}
@@ -195,7 +201,7 @@ const FlowDiagram = () => {
 
 
                     {/* --- PART II: THE MIND --- */}
-                    <FlowCard 
+                    <FlowCard
                         x={240} y={Y_P23} width={320} height={90}
                         title="PART II: THE MIND" subtitle="Nature & Origin of Mind"
                         fill={C.part2.fill} stroke={C.part2.stroke} textFill={C.part2.text}
@@ -214,7 +220,7 @@ const FlowDiagram = () => {
 
 
                     {/* --- PART III: AFFECTS --- */}
-                    <FlowCard 
+                    <FlowCard
                         x={1040} y={Y_P23} width={320} height={90}
                         title="PART III: AFFECTS" subtitle="Origin & Nature of Emotions"
                         fill={C.part3.fill} stroke={C.part3.stroke} textFill={C.part3.text}
@@ -233,7 +239,7 @@ const FlowDiagram = () => {
 
 
                     {/* --- PART IV: BONDAGE --- */}
-                    <FlowCard 
+                    <FlowCard
                         x={240} y={Y_P45} width={320} height={90}
                         title="PART IV: BONDAGE" subtitle="Strength of the Emotions"
                         fill={C.part4.fill} stroke={C.part4.stroke} textFill={C.part4.text}
@@ -252,7 +258,7 @@ const FlowDiagram = () => {
 
 
                     {/* --- PART V: FREEDOM --- */}
-                    <FlowCard 
+                    <FlowCard
                         x={1040} y={Y_P45} width={320} height={90}
                         title="PART V: FREEDOM" subtitle="Power of the Intellect"
                         fill={C.part5.fill} stroke={C.part5.stroke} textFill={C.part5.text}
@@ -264,9 +270,9 @@ const FlowDiagram = () => {
                         <SubCard x={950} y={Y_P45_SUB1} width={160} text="Reason over Affects" fill="white" stroke={C.part5.stroke} textFill={C.part5.text} parentX={1200} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Reason over Affects", "Power of Mind")} />
                         <SubCard x={1130} y={Y_P45_SUB1} width={160} text="Intellectual Love" fill="white" stroke={C.part5.stroke} textFill={C.part5.text} parentX={1200} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Intellectual Love", "Amor Dei Intellectualis")} />
                         <SubCard x={1310} y={Y_P45_SUB1} width={160} text="Eternity of Mind" fill="white" stroke={C.part5.stroke} textFill={C.part5.text} parentX={1200} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Eternity of Mind", "Sub specie aeternitatis")} />
-                        {/* Row 2 */}
-                        <SubCard x={1040} y={Y_P45_SUB2} width={160} text="Third Kind of Knowledge" fill="white" stroke={C.part5.stroke} textFill={C.part5.text} parentX={1200} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Third Kind of Knowledge", "Intuition")} />
-                        <SubCard x={1220} y={Y_P45_SUB2} width={160} text="Blessedness" fill="white" stroke={C.part5.stroke} textFill={C.part5.text} parentX={1200} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Blessedness", "Virtue itself")} />
+                        {/* Row 2 - Adjusted for spacing to prevent overflow */}
+                        <SubCard x={1000} y={Y_P45_SUB2} width={200} text="Third Kind of Knowledge" fill="white" stroke={C.part5.stroke} textFill={C.part5.text} parentX={1200} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Third Kind of Knowledge", "Intuition")} />
+                        <SubCard x={1240} y={Y_P45_SUB2} width={160} text="Blessedness" fill="white" stroke={C.part5.stroke} textFill={C.part5.text} parentX={1200} parentY={Y_P45 + 90} onClick={() => handleNodeClick("Blessedness", "Virtue itself")} />
                     </g>
 
 

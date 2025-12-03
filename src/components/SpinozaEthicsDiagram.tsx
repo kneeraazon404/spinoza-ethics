@@ -1,13 +1,15 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Info, Zap, Brain, Heart, Crown, Network } from 'lucide-react';
+import { Info, Zap, Brain, Heart, Crown, Network, Globe, BookOpen } from 'lucide-react';
 import HierarchyDiagram from './diagrams/HierarchyDiagram';
 import FlowDiagram from './diagrams/FlowDiagram';
 import ParallelismDiagram from './diagrams/ParallelismDiagram';
 import AffectsDiagram from './diagrams/AffectsDiagram';
 import PowerDiagram from './diagrams/PowerDiagram';
 import SystemDiagram from './diagrams/SystemDiagram';
+import AboutView from './diagrams/AboutView';
+import SummaryView from './diagrams/SummaryView';
 
 const SpinozaEthicsDiagram = () => {
     const [activeView, setActiveView] = useState('hierarchy');
@@ -18,21 +20,23 @@ const SpinozaEthicsDiagram = () => {
         { id: 'parallelism', name: 'Parallelism', icon: Brain },
         { id: 'affects', name: 'Affects', icon: Heart },
         { id: 'power', name: 'Power→Virtue', icon: Crown },
-        { id: 'system', name: 'Complete', icon: Info }
+        { id: 'system', name: 'Complete', icon: Globe },
+        { id: 'about', name: 'About', icon: Info },
+        { id: 'summary', name: 'Read Summary', icon: BookOpen }
     ];
 
     return (
         <div className="w-full min-h-screen bg-[#f9fafb] text-slate-900 font-sans flex flex-col">
-            
+
             {/* HEADER CONTENT */}
             <header className="w-full max-w-5xl mx-auto pt-12 pb-8 px-6 text-center z-10">
-                <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-3 tracking-tight">
+                <h1 className="text-4xl md:text-5xl font-black text-slate-800 mb-3 tracking-tight">
                     Spinoza&apos;s Ethics
                 </h1>
                 <p className="text-sm md:text-base text-slate-500 font-bold tracking-[0.25em] uppercase mb-2">
                     Interactive Visual Exploration
                 </p>
-                <p className="text-base md:text-lg italic text-slate-400 font-serif">
+                <p className="text-base md:text-lg font-serif font-bold text-slate-500">
                     From Substance to Blessedness: A Complete Philosophical System
                 </p>
             </header>
@@ -47,11 +51,10 @@ const SpinozaEthicsDiagram = () => {
                             <button
                                 key={view.id}
                                 onClick={() => setActiveView(view.id)}
-                                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-300 border ${
-                                    isActive
+                                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-300 border ${isActive
                                     ? 'bg-slate-900 text-white border-slate-900 shadow-lg transform scale-105'
                                     : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:text-slate-800 hover:bg-slate-50'
-                                }`}
+                                    }`}
                             >
                                 <Icon size={16} strokeWidth={isActive ? 2.5 : 2} />
                                 <span>{view.name}</span>
@@ -68,12 +71,14 @@ const SpinozaEthicsDiagram = () => {
                 <div className="w-full overflow-hidden rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-sm relative">
                     <div className="w-full overflow-x-auto">
                         <div className="min-w-[1000px]">
+                            {activeView === 'about' && <AboutView />}
                             {activeView === 'hierarchy' && <HierarchyDiagram />}
                             {activeView === 'flow' && <FlowDiagram />}
                             {activeView === 'parallelism' && <ParallelismDiagram />}
                             {activeView === 'affects' && <AffectsDiagram />}
                             {activeView === 'power' && <PowerDiagram />}
                             {activeView === 'system' && <SystemDiagram />}
+                            {activeView === 'summary' && <SummaryView />}
                         </div>
                     </div>
                 </div>
@@ -90,6 +95,23 @@ const SpinozaEthicsDiagram = () => {
                         <span className="w-1 h-1 rounded-full bg-slate-300"></span>
                         <span>Scholium to P42</span>
                     </div>
+                </div>
+            </footer>
+            {/* FOOTER */}
+            <footer className="w-full max-w-screen-xl mx-auto px-6 py-8 mt-auto flex flex-col md:flex-row justify-between items-center text-sm text-slate-400 gap-4">
+                <div className="font-medium text-center md:text-left">
+                    Credit: <span className="font-semibold text-slate-500">Baruch Spinoza</span> — <i>Ethica Ordine Geometrico Demonstrata</i> (1677)
+                </div>
+                <div className="flex items-center gap-1">
+                    <span>&copy; {new Date().getFullYear()} Nirajan Karki | Created with passion ❤️ by </span>
+                    <a
+                        href="https://kneeraazon.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-slate-600 transition-colors font-semibold"
+                    >
+                        kneeraazon
+                    </a>
                 </div>
             </footer>
         </div>
