@@ -31,10 +31,20 @@ const AffectsDiagram = () => {
     const CANVAS_WIDTH = 1100;
     const CANVAS_HEIGHT = 800;
 
+    // Standardized Palette
+    const C = {
+        bg: "#ffffff",
+        mind: { stroke: "#4f46e5", fill: "#e0e7ff", text: "#312e81" }, // Indigo (Conatus)
+        bondage: { stroke: "#ea580c", fill: "#ffedd5", text: "#9a3412" }, // Orange
+        freedom: { stroke: "#059669", fill: "#d1fae5", text: "#065f46" }, // Emerald
+        transform: { stroke: "#a855f7", fill: "#f3e8ff", text: "#6b21a8" }, // Purple
+        text: { primary: "#1f2937", secondary: "#4b5563", muted: "#94a3b8" }
+    };
+
     return (
-        <div className="w-full min-h-screen bg-slate-50 relative font-sans overflow-hidden">
+        <div className="w-full min-h-screen relative font-sans overflow-hidden" style={{ backgroundColor: C.bg }}>
             {/* HEADER */}
-            <div className="absolute top-6 left-8 z-10 pointer-events-none">
+            <div className="absolute top-4 left-8 z-10 pointer-events-none">
                 <h2 className="text-slate-400 text-sm font-semibold tracking-widest uppercase mb-1.5">
                     Ethica: De Affectibus
                 </h2>
@@ -48,15 +58,15 @@ const AffectsDiagram = () => {
                     <defs>
                         {/* Grid Pattern */}
                         <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" strokeWidth="1" opacity="0.5" />
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" strokeWidth="1" />
                         </pattern>
 
-                        {/* Drop Shadow */}
-                        <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+                        {/* Soft Shadow */}
+                        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
                             <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
-                            <feOffset dx="2" dy="4" result="offsetblur" />
+                            <feOffset dx="2" dy="3" result="offsetblur" />
                             <feComponentTransfer>
-                                <feFuncA type="linear" slope="0.15" />
+                                <feFuncA type="linear" slope="0.1" />
                             </feComponentTransfer>
                             <feMerge>
                                 <feMergeNode />
@@ -66,115 +76,115 @@ const AffectsDiagram = () => {
 
                         {/* Gradients */}
                         <linearGradient id="gradConatus" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#e0e7ff" />
+                            <stop offset="0%" stopColor={C.mind.fill} />
                             <stop offset="100%" stopColor="#c7d2fe" />
                         </linearGradient>
                         <linearGradient id="gradBondage" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#ffe4e6" />
-                            <stop offset="100%" stopColor="#fecdd3" />
+                            <stop offset="0%" stopColor={C.bondage.fill} />
+                            <stop offset="100%" stopColor="#fed7aa" />
                         </linearGradient>
                         <linearGradient id="gradFreedom" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#dcfce7" />
-                            <stop offset="100%" stopColor="#bbf7d0" />
+                            <stop offset="0%" stopColor={C.freedom.fill} />
+                            <stop offset="100%" stopColor="#a7f3d0" />
                         </linearGradient>
                         <linearGradient id="gradTransform" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" stopColor="#c084fc" />
                             <stop offset="100%" stopColor="#a855f7" />
                         </linearGradient>
 
-                        <marker id="arrowRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                            <path d="M0,0 L6,3 L0,6 L0,0" fill="#fa5252" />
+                        <marker id="arrowBondage" markerWidth="5" markerHeight="3" refX="4" refY="1.5" orient="auto">
+                            <path d="M0,0 L5,1.5 L0,3 L0,0" fill={C.bondage.stroke} />
                         </marker>
-                        <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                            <path d="M0,0 L6,3 L0,6 L0,0" fill="#51cf66" />
+                        <marker id="arrowFreedom" markerWidth="5" markerHeight="3" refX="4" refY="1.5" orient="auto">
+                            <path d="M0,0 L5,1.5 L0,3 L0,0" fill={C.freedom.stroke} />
                         </marker>
-                        <marker id="arrowPurple" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                            <path d="M0,0 L6,3 L0,6 L0,0" fill="#845ef7" />
+                        <marker id="arrowPurple" markerWidth="5" markerHeight="3" refX="4" refY="1.5" orient="auto">
+                            <path d="M0,0 L5,1.5 L0,3 L0,0" fill={C.transform.stroke} />
                         </marker>
                     </defs>
 
                     {/* Background Grid */}
                     <rect width="100%" height="100%" fill="url(#grid)" />
 
-                    <text x={CANVAS_WIDTH / 2} y="35" textAnchor="middle" fontSize="22" fontWeight="bold" fill="#343a40">
+                    <text x={CANVAS_WIDTH / 2} y="35" textAnchor="middle" fontSize="20" fontWeight="800" fill={C.text.primary} letterSpacing="0.5">
                         From Bondage to Freedom Through Understanding
                     </text>
 
                     {/* Central Conatus */}
                     <InteractiveGroup transform={`translate(${CANVAS_WIDTH / 2}, 100)`} onClick={() => handleNodeClick("Conatus", "Striving to persevere")}>
-                        <rect x="-150" y="-50" width="300" height="100" rx="6" fill="url(#gradConatus)" fillOpacity="0.9" stroke="#4c6ef5" strokeWidth="2" filter="url(#dropShadow)" />
-                        <text x="0" y="-5" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#3b5bdb">CONATUS</text>
-                        <text x="0" y="15" textAnchor="middle" fontSize="11" fill="#4c6ef5">Striving to persevere = Essence (IIIP7)</text>
+                        <rect x="-150" y="-50" width="300" height="100" rx="8" fill="url(#gradConatus)" stroke={C.mind.stroke} strokeWidth="3" filter="url(#softShadow)" />
+                        <text x="0" y="-5" textAnchor="middle" fontSize="18" fontWeight="800" fill={C.mind.text} letterSpacing="1">CONATUS</text>
+                        <text x="0" y="20" textAnchor="middle" fontSize="14" fontWeight="500" fill={C.mind.text}>Striving to persevere = Essence (IIIP7)</text>
                     </InteractiveGroup>
 
                     {/* Connection from conatus */}
-                    <path d={`M ${CANVAS_WIDTH / 2 - 100} 120 Q 270 160 270 260`} stroke="#fa5252" strokeWidth="2" fill="none" strokeDasharray="5,5" />
-                    <path d={`M ${CANVAS_WIDTH / 2 + 100} 120 Q 830 160 830 260`} stroke="#51cf66" strokeWidth="2" fill="none" strokeDasharray="5,5" />
+                    <path d={`M ${CANVAS_WIDTH / 2 - 100} 120 Q 270 160 270 260`} stroke={C.bondage.stroke} strokeWidth="2" fill="none" strokeDasharray="5,5" />
+                    <path d={`M ${CANVAS_WIDTH / 2 + 100} 120 Q 830 160 830 260`} stroke={C.freedom.stroke} strokeWidth="2" fill="none" strokeDasharray="5,5" />
 
                     {/* Left path - Bondage */}
                     <g transform="translate(70, 200)">
-                        <rect width="400" height="500" rx="6" fill="#fff5f5" stroke="#fa5252" strokeWidth="2" />
-                        <text x="200" y="35" textAnchor="middle" fontSize="19" fontWeight="bold" fill="#c92a2a">
+                        <rect width="400" height="500" rx="8" fill={C.bondage.fill} stroke={C.bondage.stroke} strokeWidth="2" fillOpacity="0.1" />
+                        <text x="200" y="35" textAnchor="middle" fontSize="18" fontWeight="800" fill={C.bondage.text} letterSpacing="1">
                             PATH OF BONDAGE
                         </text>
 
                         <InteractiveGroup transform="translate(50, 60)" onClick={() => handleNodeClick("Inadequate Ideas", "Confused perception")}>
-                            <rect width="300" height="80" rx="6" fill="#ffe3e3" stroke="#fa5252" strokeWidth="1.5" filter="url(#dropShadow)" />
-                            <text x="150" y="25" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#c92a2a">
+                            <rect width="300" height="80" rx="8" fill="white" stroke={C.bondage.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <text x="150" y="25" textAnchor="middle" fontSize="15" fontWeight="800" fill={C.bondage.text}>
                                 INADEQUATE IDEAS
                             </text>
-                            <text x="150" y="45" textAnchor="middle" fontSize="10" fill="#7d1a1a">
+                            <text x="150" y="45" textAnchor="middle" fontSize="12" fill={C.text.secondary} fontWeight="500">
                                 Confused • Partial • From external causes
                             </text>
-                            <text x="150" y="62" textAnchor="middle" fontSize="9" fill="#7d1a1a" fontStyle="italic">
+                            <text x="150" y="62" textAnchor="middle" fontSize="11" fill={C.text.muted} fontStyle="italic">
                                 First kind of knowledge (imagination)
                             </text>
                         </InteractiveGroup>
 
-                        <path d="M 200 140 L 200 170" stroke="#fa5252" strokeWidth="2" markerEnd="url(#arrowRed)" />
+                        <path d="M 200 140 L 200 170" stroke={C.bondage.stroke} strokeWidth="2" markerEnd="url(#arrowBondage)" />
 
                         <InteractiveGroup transform="translate(50, 170)" onClick={() => handleNodeClick("Passive Affects", "Passions")}>
-                            <rect width="300" height="140" rx="6" fill="#ffc9c9" stroke="#c92a2a" strokeWidth="1.5" filter="url(#dropShadow)" />
-                            <text x="150" y="25" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#c92a2a">
+                            <rect width="300" height="140" rx="8" fill="white" stroke={C.bondage.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <text x="150" y="25" textAnchor="middle" fontSize="15" fontWeight="800" fill={C.bondage.text}>
                                 PASSIVE AFFECTS
                             </text>
-                            <text x="150" y="45" textAnchor="middle" fontSize="11" fill="#7d1a1a">
+                            <text x="150" y="45" textAnchor="middle" fontSize="13" fill={C.text.secondary} fontWeight="600">
                                 (Passions)
                             </text>
-                            <text x="150" y="65" textAnchor="middle" fontSize="10" fill="#7d1a1a">
+                            <text x="150" y="65" textAnchor="middle" fontSize="12" fill={C.text.secondary}>
                                 • Joy from external causes
                             </text>
-                            <text x="150" y="82" textAnchor="middle" fontSize="10" fill="#7d1a1a">
+                            <text x="150" y="82" textAnchor="middle" fontSize="12" fill={C.text.secondary}>
                                 • Sadness from external causes
                             </text>
-                            <text x="150" y="99" textAnchor="middle" fontSize="10" fill="#7d1a1a">
+                            <text x="150" y="99" textAnchor="middle" fontSize="12" fill={C.text.secondary}>
                                 • Desire from imagination
                             </text>
-                            <text x="150" y="120" textAnchor="middle" fontSize="9" fill="#7d1a1a" fontStyle="italic">
+                            <text x="150" y="120" textAnchor="middle" fontSize="11" fill={C.text.muted} fontStyle="italic">
                                 Love, Hate, Hope, Fear, Anger...
                             </text>
                         </InteractiveGroup>
 
-                        <path d="M 200 310 L 200 340" stroke="#c92a2a" strokeWidth="2" markerEnd="url(#arrowRed)" />
+                        <path d="M 200 310 L 200 340" stroke={C.bondage.stroke} strokeWidth="2" markerEnd="url(#arrowBondage)" />
 
                         <InteractiveGroup transform="translate(50, 340)" onClick={() => handleNodeClick("Bondage", "Human impotence")}>
-                            <rect width="300" height="140" rx="6" fill="#ff8787" stroke="#7d1a1a" strokeWidth="2" filter="url(#dropShadow)" />
-                            <text x="150" y="25" textAnchor="middle" fontSize="15" fontWeight="bold" fill="white">
+                            <rect width="300" height="140" rx="8" fill="url(#gradBondage)" stroke={C.bondage.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <text x="150" y="25" textAnchor="middle" fontSize="16" fontWeight="800" fill={C.bondage.text} letterSpacing="1">
                                 BONDAGE
                             </text>
-                            <text x="150" y="50" textAnchor="middle" fontSize="11" fill="white">
+                            <text x="150" y="50" textAnchor="middle" fontSize="12" fill={C.bondage.text} fontWeight="600">
                                 • Determined by external causes
                             </text>
-                            <text x="150" y="68" textAnchor="middle" fontSize="11" fill="white">
+                            <text x="150" y="68" textAnchor="middle" fontSize="12" fill={C.bondage.text} fontWeight="600">
                                 • Fluctuating emotions
                             </text>
-                            <text x="150" y="86" textAnchor="middle" fontSize="11" fill="white">
+                            <text x="150" y="86" textAnchor="middle" fontSize="12" fill={C.bondage.text} fontWeight="600">
                                 • See better, do worse (IVPreface)
                             </text>
-                            <text x="150" y="104" textAnchor="middle" fontSize="11" fill="white">
+                            <text x="150" y="104" textAnchor="middle" fontSize="12" fill={C.bondage.text} fontWeight="600">
                                 • Slavery to transient goods
                             </text>
-                            <text x="150" y="122" textAnchor="middle" fontSize="11" fill="white">
+                            <text x="150" y="122" textAnchor="middle" fontSize="12" fill={C.bondage.text} fontWeight="600">
                                 • Suffering & conflict
                             </text>
                         </InteractiveGroup>
@@ -182,68 +192,68 @@ const AffectsDiagram = () => {
 
                     {/* Right path - Freedom */}
                     <g transform="translate(630, 200)">
-                        <rect width="400" height="500" rx="6" fill="#f0fdf4" stroke="#51cf66" strokeWidth="2" />
-                        <text x="200" y="35" textAnchor="middle" fontSize="19" fontWeight="bold" fill="#2b8a3e">
+                        <rect width="400" height="500" rx="8" fill={C.freedom.fill} stroke={C.freedom.stroke} strokeWidth="2" fillOpacity="0.1" />
+                        <text x="200" y="35" textAnchor="middle" fontSize="18" fontWeight="800" fill={C.freedom.text} letterSpacing="1">
                             PATH OF FREEDOM
                         </text>
 
                         <InteractiveGroup transform="translate(50, 60)" onClick={() => handleNodeClick("Adequate Ideas", "Clear and distinct")}>
-                            <rect width="300" height="80" rx="6" fill="#dcfce7" stroke="#51cf66" strokeWidth="1.5" filter="url(#dropShadow)" />
-                            <text x="150" y="25" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#2b8a3e">
+                            <rect width="300" height="80" rx="8" fill="white" stroke={C.freedom.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <text x="150" y="25" textAnchor="middle" fontSize="15" fontWeight="800" fill={C.freedom.text}>
                                 ADEQUATE IDEAS
                             </text>
-                            <text x="150" y="45" textAnchor="middle" fontSize="10" fill="#14532d">
+                            <text x="150" y="45" textAnchor="middle" fontSize="12" fill={C.text.secondary} fontWeight="500">
                                 Clear & distinct • Complete • From our nature
                             </text>
-                            <text x="150" y="62" textAnchor="middle" fontSize="9" fill="#14532d" fontStyle="italic">
+                            <text x="150" y="62" textAnchor="middle" fontSize="11" fill={C.text.muted} fontStyle="italic">
                                 Second & third kinds of knowledge
                             </text>
                         </InteractiveGroup>
 
-                        <path d="M 200 140 L 200 170" stroke="#51cf66" strokeWidth="2" markerEnd="url(#arrowGreen)" />
+                        <path d="M 200 140 L 200 170" stroke={C.freedom.stroke} strokeWidth="2" markerEnd="url(#arrowFreedom)" />
 
                         <InteractiveGroup transform="translate(50, 170)" onClick={() => handleNodeClick("Active Affects", "Actions")}>
-                            <rect width="300" height="140" rx="6" fill="#bbf7d0" stroke="#2b8a3e" strokeWidth="1.5" filter="url(#dropShadow)" />
-                            <text x="150" y="25" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#14532d">
+                            <rect width="300" height="140" rx="8" fill="white" stroke={C.freedom.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <text x="150" y="25" textAnchor="middle" fontSize="15" fontWeight="800" fill={C.freedom.text}>
                                 ACTIVE AFFECTS
                             </text>
-                            <text x="150" y="45" textAnchor="middle" fontSize="11" fill="#14532d">
+                            <text x="150" y="45" textAnchor="middle" fontSize="13" fill={C.text.secondary} fontWeight="600">
                                 (Actions)
                             </text>
-                            <text x="150" y="65" textAnchor="middle" fontSize="10" fill="#14532d">
+                            <text x="150" y="65" textAnchor="middle" fontSize="12" fill={C.text.secondary}>
                                 • Active joy from understanding
                             </text>
-                            <text x="150" y="82" textAnchor="middle" fontSize="10" fill="#14532d">
+                            <text x="150" y="82" textAnchor="middle" fontSize="12" fill={C.text.secondary}>
                                 • Active desire from reason
                             </text>
-                            <text x="150" y="99" textAnchor="middle" fontSize="10" fill="#14532d">
+                            <text x="150" y="99" textAnchor="middle" fontSize="12" fill={C.text.secondary}>
                                 • Tenacity & Nobility (IIIP59)
                             </text>
-                            <text x="150" y="120" textAnchor="middle" fontSize="9" fill="#14532d" fontStyle="italic">
+                            <text x="150" y="120" textAnchor="middle" fontSize="11" fill={C.text.muted} fontStyle="italic">
                                 Intellectual love, Self-esteem...
                             </text>
                         </InteractiveGroup>
 
-                        <path d="M 200 310 L 200 340" stroke="#2b8a3e" strokeWidth="2" markerEnd="url(#arrowGreen)" />
+                        <path d="M 200 310 L 200 340" stroke={C.freedom.stroke} strokeWidth="2" markerEnd="url(#arrowFreedom)" />
 
                         <InteractiveGroup transform="translate(50, 340)" onClick={() => handleNodeClick("Freedom", "Human Freedom")}>
-                            <rect width="300" height="140" rx="6" fill="#4ade80" stroke="#1a5a1a" strokeWidth="2" filter="url(#dropShadow)" />
-                            <text x="150" y="25" textAnchor="middle" fontSize="15" fontWeight="bold" fill="white">
+                            <rect width="300" height="140" rx="8" fill="url(#gradFreedom)" stroke={C.freedom.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <text x="150" y="25" textAnchor="middle" fontSize="16" fontWeight="800" fill={C.freedom.text} letterSpacing="1">
                                 FREEDOM
                             </text>
-                            <text x="150" y="50" textAnchor="middle" fontSize="11" fill="white">
+                            <text x="150" y="50" textAnchor="middle" fontSize="12" fill={C.freedom.text} fontWeight="600">
                                 • Self-determined through knowledge
                             </text>
-                            <text x="150" y="68" textAnchor="middle" fontSize="11" fill="white">
+                            <text x="150" y="68" textAnchor="middle" fontSize="12" fill={C.freedom.text} fontWeight="600">
                                 • Stable emotions
                             </text>
-                            <text x="150" y="86" textAnchor="middle" fontSize="11" fill="white">
+                            <text x="150" y="86" textAnchor="middle" fontSize="12" fill={C.freedom.text} fontWeight="600">
                                 • Virtue = Power (IVd8)
                             </text>
-                            <text x="150" y="104" textAnchor="middle" fontSize="11" fill="white">
+                            <text x="150" y="104" textAnchor="middle" fontSize="12" fill={C.freedom.text} fontWeight="600">
                                 • Love of eternal goods
                             </text>
-                            <text x="150" y="122" textAnchor="middle" fontSize="11" fill="white">
+                            <text x="150" y="122" textAnchor="middle" fontSize="12" fill={C.freedom.text} fontWeight="600">
                                 • Blessedness & peace
                             </text>
                         </InteractiveGroup>
@@ -251,16 +261,16 @@ const AffectsDiagram = () => {
 
                     {/* Transformation arrow */}
                     <g transform="translate(470, 410)">
-                        <path d="M 0 40 L 160 40" stroke="#a855f7" strokeWidth="4" markerEnd="url(#arrowPurple)" strokeDasharray="10,5" />
+                        <path d="M 0 40 L 160 40" stroke={C.transform.stroke} strokeWidth="2" markerEnd="url(#arrowPurple)" strokeDasharray="10,5" />
                         <InteractiveGroup transform="translate(0, 0)" onClick={() => handleNodeClick("Transformation", "Understanding affects")}>
-                            <rect width="160" height="80" rx="6" fill="url(#gradTransform)" filter="url(#dropShadow)" />
-                            <text x="80" y="25" textAnchor="middle" fontSize="12" fontWeight="bold" fill="white">
+                            <rect width="160" height="80" rx="8" fill="url(#gradTransform)" filter="url(#softShadow)" />
+                            <text x="80" y="25" textAnchor="middle" fontSize="12" fontWeight="800" fill="white" letterSpacing="0.5">
                                 TRANSFORMATION
                             </text>
-                            <text x="80" y="45" textAnchor="middle" fontSize="9" fill="white">
+                            <text x="80" y="45" textAnchor="middle" fontSize="10" fill="white" fontWeight="500">
                                 VP3: Clear idea of affect
                             </text>
-                            <text x="80" y="60" textAnchor="middle" fontSize="9" fill="white">
+                            <text x="80" y="60" textAnchor="middle" fontSize="10" fill="white" fontWeight="500">
                                 transforms passion → action
                             </text>
                         </InteractiveGroup>
@@ -268,8 +278,8 @@ const AffectsDiagram = () => {
 
                     {/* Bottom note */}
                     <g transform="translate(150, 740)">
-                        <rect width="800" height="45" rx="6" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1.5" />
-                        <text x="400" y="25" textAnchor="middle" fontSize="11" fill="#475569" fontWeight="600">
+                        <rect width="800" height="45" rx="8" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1.5" />
+                        <text x="400" y="28" textAnchor="middle" fontSize="12" fill={C.text.secondary} fontWeight="600">
                             Both paths are determined. Freedom ≠ Indetermination, but Self-Determination through Knowledge.
                         </text>
                     </g>

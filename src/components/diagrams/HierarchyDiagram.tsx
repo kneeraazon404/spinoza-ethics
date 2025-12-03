@@ -52,9 +52,9 @@ const HierarchyDiagram = () => {
     const Y_IMMEDIATE = 550;
     const Y_MEDIATE = 690;
     const Y_FINITE = 880;
-    
+
     // Calculated Gaps for Connectors
-    const Y_SUB_BTM = Y_SUBSTANCE + 100; 
+    const Y_SUB_BTM = Y_SUBSTANCE + 100;
     const Y_ATTR_TOP = Y_ATTRIBUTES - 75;
     const Y_ATTR_BTM = Y_ATTRIBUTES + 75;
     const Y_IMM_TOP = Y_IMMEDIATE - 45;
@@ -77,11 +77,11 @@ const HierarchyDiagram = () => {
     return (
         <div className="w-full min-h-[1100px] relative font-sans overflow-auto" style={{ backgroundColor: C.bg }}>
             {/* HEADER */}
-            <div className="absolute top-2 left-10 z-10 pointer-events-none">
-                <h2 className="text-slate-400 text-sm font-bold tracking-widest uppercase mb-1">
+            <div className="absolute top-4 left-8 z-10 pointer-events-none">
+                <h2 className="text-slate-400 text-sm font-semibold tracking-widest uppercase mb-1">
                     ETHICA ORDINE GEOMETRICO DEMONSTRATA
                 </h2>
-                <h3 className="text-slate-300 text-xs font-semibold tracking-wider uppercase">
+                <h3 className="text-slate-300 text-xs font-medium tracking-wider uppercase">
                     / ETHICS DEMONSTRATED IN GEOMETRICAL ORDER
                 </h3>
             </div>
@@ -130,7 +130,7 @@ const HierarchyDiagram = () => {
                     <rect width="100%" height="100%" fill="url(#globalGrid)" />
 
                     {/* --- SIDE VERTICAL TEXT --- */}
-                    
+
                     {/* LEFT SIDE: NATURA NATURANS (Substance + Attributes) */}
                     <g transform="translate(80, 250)" className="select-none pointer-events-none font-black tracking-widest text-slate-300">
                         {/* NATURA */}
@@ -140,7 +140,7 @@ const HierarchyDiagram = () => {
                         <text x="0" y="60" textAnchor="middle" fill="#cbd5e1" fontSize="16">U</text>
                         <text x="0" y="80" textAnchor="middle" fill="#cbd5e1" fontSize="16">R</text>
                         <text x="0" y="100" textAnchor="middle" fill="#cbd5e1" fontSize="16">A</text>
-                        
+
                         {/* ... infinite */}
                         <text x="0" y="130" textAnchor="middle" fill="#94a3b8" fontSize="16" fontWeight="bold">...</text>
                         <text x="0" y="150" textAnchor="middle" fill="#94a3b8" fontSize="14" fontWeight="600" letterSpacing="0">infinite</text>
@@ -156,7 +156,7 @@ const HierarchyDiagram = () => {
                         <text x="0" y="320" textAnchor="middle" fill="#cbd5e1" fontSize="16">S</text>
 
                         <text x="0" y="350" textAnchor="middle" fill="#94a3b8" fontSize="16" fontWeight="400">/</text>
-                        
+
                         {/* Active */}
                         <text x="0" y="370" textAnchor="middle" fill="#cbd5e1" fontSize="14" fontWeight="700">A</text>
                         <text x="0" y="385" textAnchor="middle" fill="#cbd5e1" fontSize="14" fontWeight="700">c</text>
@@ -175,7 +175,7 @@ const HierarchyDiagram = () => {
                         <text x="0" y="60" textAnchor="middle" fill="#cbd5e1" fontSize="16">U</text>
                         <text x="0" y="80" textAnchor="middle" fill="#cbd5e1" fontSize="16">R</text>
                         <text x="0" y="100" textAnchor="middle" fill="#cbd5e1" fontSize="16">A</text>
-                        
+
                         {/* ... infinite */}
                         <text x="0" y="130" textAnchor="middle" fill="#94a3b8" fontSize="16" fontWeight="bold">...</text>
                         <text x="0" y="150" textAnchor="middle" fill="#94a3b8" fontSize="14" fontWeight="600" letterSpacing="0">infinite</text>
@@ -230,14 +230,14 @@ const HierarchyDiagram = () => {
                         <rect x="-350" y="-80" width="700" height="200" rx="8" fill={C.substance.fill} stroke="none" />
                         {/* Border */}
                         <rect x="-350" y="-80" width="700" height="200" rx="8" fill="none" stroke={C.substance.stroke} strokeWidth="3" filter="url(#softShadow)" />
-                        
+
                         {/* Content */}
-                                                {/* Line 234 omitted */}
-                        <text x="0" y="-30" textAnchor="middle" fill={C.substance.text} fontSize="20" fontWeight="900" letterSpacing="1">SUBSTANCE</text>
+                        {/* Line 234 omitted */}
+                        <text x="0" y="-30" textAnchor="middle" fill={C.substance.text} fontSize="20" fontWeight="800" letterSpacing="1">SUBSTANCE</text>
                         <text x="0" y="5" textAnchor="middle" fill={C.substance.text} fontSize="16" fontWeight="600" fontStyle="italic">God / Nature (Deus sive Natura)</text>
-                        
+
                         {/* Line 238 omitted */}
-                        
+
                         {/* Increased size, reduced weight for this text */}
                         <text x="0" y="40" textAnchor="middle" fill="#64748b" fontSize="16" fontWeight="500" letterSpacing="0.5">
                             One • Infinite • Self-caused • Necessarily Exists
@@ -245,13 +245,13 @@ const HierarchyDiagram = () => {
 
                         {/* --- UNKNOWN ATTRIBUTES SECTION --- */}
                         <g transform="translate(0, 80)">
-                            
+
                             {/* Radiating Gradient Arrows (Longer, More Curved) */}
                             {/* Left Side */}
                             <path d="M -150 0 C -300 0, -500 -30, -700 -80" stroke="url(#gradLeft)" strokeWidth="3" fill="none" />
                             <path d="M -150 10 C -300 20, -480 40, -680 10" stroke="url(#gradLeft)" strokeWidth="3" fill="none" />
                             <path d="M -150 20 C -300 50, -450 80, -650 100" stroke="url(#gradLeft)" strokeWidth="3" fill="none" />
-                            
+
                             {/* Right Side */}
                             <path d="M 150 0 C 300 0, 500 -30, 700 -80" stroke="url(#gradRight)" strokeWidth="3" fill="none" />
                             <path d="M 150 10 C 300 20, 480 40, 680 10" stroke="url(#gradRight)" strokeWidth="3" fill="none" />
@@ -275,8 +275,8 @@ const HierarchyDiagram = () => {
                     {/* --- ATTRIBUTES --- */}
                     {/* Thought (Left) */}
                     <InteractiveGroup transform={`translate(350, ${Y_ATTRIBUTES})`} onClick={() => handleNodeClick("Attribute of Thought", "Infinite Intellect")}>
-                        <rect x="-200" y="-75" width="400" height="150" rx="6" fill={C.thought.fill} stroke={C.thought.stroke} strokeWidth="3" filter="url(#softShadow)" />
-                        <text x="0" y="-30" textAnchor="middle" fill={C.thought.text} fontSize="20" fontWeight="900" letterSpacing="0.5">ATTRIBUTE: THOUGHT</text>
+                        <rect x="-200" y="-75" width="400" height="150" rx="8" fill={C.thought.fill} stroke={C.thought.stroke} strokeWidth="3" filter="url(#softShadow)" />
+                        <text x="0" y="-30" textAnchor="middle" fill={C.thought.text} fontSize="20" fontWeight="800" letterSpacing="0.5">ATTRIBUTE: THOUGHT</text>
                         {/* Bigger / Not Bold */}
                         <text x="0" y="0" textAnchor="middle" fill={C.thought.text} fontSize="16" fontWeight="500">Infinite • Eternal • Conceived through itself</text>
                         <text x="0" y="30" textAnchor="middle" fill={C.thought.text} fontSize="16" fontWeight="400" fontStyle="italic">All mental phenomena</text>
@@ -284,8 +284,8 @@ const HierarchyDiagram = () => {
 
                     {/* Extension (Right) */}
                     <InteractiveGroup transform={`translate(1250, ${Y_ATTRIBUTES})`} onClick={() => handleNodeClick("Attribute of Extension", "Infinite Extension")}>
-                        <rect x="-200" y="-75" width="400" height="150" rx="6" fill={C.extension.fill} stroke={C.extension.stroke} strokeWidth="3" filter="url(#softShadow)" />
-                        <text x="0" y="-30" textAnchor="middle" fill={C.extension.text} fontSize="20" fontWeight="900" letterSpacing="0.5">ATTRIBUTE: EXTENSION</text>
+                        <rect x="-200" y="-75" width="400" height="150" rx="8" fill={C.extension.fill} stroke={C.extension.stroke} strokeWidth="3" filter="url(#softShadow)" />
+                        <text x="0" y="-30" textAnchor="middle" fill={C.extension.text} fontSize="20" fontWeight="800" letterSpacing="0.5">ATTRIBUTE: EXTENSION</text>
                         <text x="0" y="0" textAnchor="middle" fill={C.extension.text} fontSize="16" fontWeight="500">Infinite • Eternal • Conceived through itself</text>
                         <text x="0" y="30" textAnchor="middle" fill={C.extension.text} fontSize="16" fontWeight="400" fontStyle="italic">All physical phenomena</text>
                     </InteractiveGroup>
@@ -294,14 +294,14 @@ const HierarchyDiagram = () => {
                     {/* --- INFINITE IMMEDIATE MODES --- */}
                     {/* Thought */}
                     <InteractiveGroup transform={`translate(350, ${Y_IMMEDIATE})`} onClick={() => handleNodeClick("Infinite Immediate Mode", "Infinite Intellect")}>
-                        <rect x="-160" y="-45" width="320" height="90" rx="6" fill="white" stroke={C.thought.stroke} strokeWidth="2" strokeDasharray="8,5" />
+                        <rect x="-160" y="-45" width="320" height="90" rx="8" fill="white" stroke={C.thought.stroke} strokeWidth="2" strokeDasharray="8,5" />
                         <text x="0" y="-10" textAnchor="middle" fill={C.thought.text} fontSize="16" fontWeight="800">Infinite Immediate Mode</text>
                         <text x="0" y="18" textAnchor="middle" fill={C.text.secondary} fontSize="16" fontWeight="400" fontStyle="italic">(Infinite Intellect)</text>
                     </InteractiveGroup>
 
                     {/* Extension */}
                     <InteractiveGroup transform={`translate(1250, ${Y_IMMEDIATE})`} onClick={() => handleNodeClick("Infinite Immediate Mode", "Motion & Rest")}>
-                        <rect x="-160" y="-45" width="320" height="90" rx="6" fill="white" stroke={C.extension.stroke} strokeWidth="2" strokeDasharray="8,5" />
+                        <rect x="-160" y="-45" width="320" height="90" rx="8" fill="white" stroke={C.extension.stroke} strokeWidth="2" strokeDasharray="8,5" />
                         <text x="0" y="-10" textAnchor="middle" fill={C.extension.text} fontSize="16" fontWeight="800">Infinite Immediate Mode</text>
                         <text x="0" y="18" textAnchor="middle" fill={C.text.secondary} fontSize="16" fontWeight="400" fontStyle="italic">(Motion & Rest)</text>
                     </InteractiveGroup>
@@ -310,14 +310,14 @@ const HierarchyDiagram = () => {
                     {/* --- INFINITE MEDIATE MODES --- */}
                     {/* Thought */}
                     <InteractiveGroup transform={`translate(350, ${Y_MEDIATE})`} onClick={() => handleNodeClick("Infinite Mediate Mode", "Chains of Ideas")}>
-                        <rect x="-160" y="-45" width="320" height="90" rx="6" fill="white" stroke={C.thought.stroke} strokeWidth="2" strokeDasharray="8,5" />
+                        <rect x="-160" y="-45" width="320" height="90" rx="8" fill="white" stroke={C.thought.stroke} strokeWidth="2" strokeDasharray="8,5" />
                         <text x="0" y="-10" textAnchor="middle" fill={C.thought.text} fontSize="16" fontWeight="800">Infinite Mediate Modes</text>
                         <text x="0" y="18" textAnchor="middle" fill={C.text.secondary} fontSize="16" fontWeight="400" fontStyle="italic">(Chains of Ideas)</text>
                     </InteractiveGroup>
 
                     {/* Extension */}
                     <InteractiveGroup transform={`translate(1250, ${Y_MEDIATE})`} onClick={() => handleNodeClick("Infinite Mediate Mode", "Face of Universe")}>
-                        <rect x="-160" y="-45" width="320" height="90" rx="6" fill="white" stroke={C.extension.stroke} strokeWidth="2" strokeDasharray="8,5" />
+                        <rect x="-160" y="-45" width="320" height="90" rx="8" fill="white" stroke={C.extension.stroke} strokeWidth="2" strokeDasharray="8,5" />
                         <text x="0" y="-10" textAnchor="middle" fill={C.extension.text} fontSize="16" fontWeight="800">Infinite Mediate Modes</text>
                         <text x="0" y="18" textAnchor="middle" fill={C.text.secondary} fontSize="16" fontWeight="400" fontStyle="italic">(Face of Universe)</text>
                     </InteractiveGroup>
@@ -327,30 +327,30 @@ const HierarchyDiagram = () => {
                     {/* Thought */}
                     <InteractiveGroup transform={`translate(350, ${Y_FINITE})`} onClick={() => handleNodeClick("Finite Modes: Mind", "Singular Ideas")}>
                         <rect x="-180" y="-80" width="360" height="160" rx="8" fill="white" stroke={C.thought.stroke} strokeWidth="3" />
-                        <text x="0" y="-40" textAnchor="middle" fill={C.thought.text} fontSize="20" fontWeight="900" letterSpacing="1">FINITE MODES</text>
+                        <text x="0" y="-40" textAnchor="middle" fill={C.thought.text} fontSize="20" fontWeight="800" letterSpacing="1">FINITE MODES</text>
                         <text x="0" y="-5" textAnchor="middle" fill={C.text.primary} fontSize="16" fontWeight="600">Individual minds • Ideas</text>
                         <text x="0" y="25" textAnchor="middle" fill={C.thought.text} fontSize="16" fontWeight="500">Beliefs • Desires • Emotions</text>
-                        
+
                         <g transform="translate(0, 120)">
-                             <rect x="-140" y="-25" width="280" height="50" rx="4" fill={C.thought.fill} stroke={C.thought.stroke} strokeWidth="2" />
-                             <text x="0" y="0" textAnchor="middle" fill={C.thought.text} fontSize="14" fontWeight="800">HUMAN MIND</text>
-                             <text x="0" y="18" textAnchor="middle" fill={C.thought.text} fontSize="15" fontStyle="italic">= idea of body (IIP13)</text>
-                             <circle cx="140" cy="0" r="5" fill={C.thought.stroke} />
+                            <rect x="-140" y="-25" width="280" height="50" rx="6" fill={C.thought.fill} stroke={C.thought.stroke} strokeWidth="2" />
+                            <text x="0" y="0" textAnchor="middle" fill={C.thought.text} fontSize="14" fontWeight="800">HUMAN MIND</text>
+                            <text x="0" y="18" textAnchor="middle" fill={C.thought.text} fontSize="15" fontStyle="italic">= idea of body (IIP13)</text>
+                            <circle cx="140" cy="0" r="5" fill={C.thought.stroke} />
                         </g>
                     </InteractiveGroup>
 
                     {/* Extension */}
                     <InteractiveGroup transform={`translate(1250, ${Y_FINITE})`} onClick={() => handleNodeClick("Finite Modes: Body", "Singular Bodies")}>
                         <rect x="-180" y="-90" width="360" height="160" rx="8" fill="white" stroke={C.extension.stroke} strokeWidth="3" />
-                        <text x="0" y="-40" textAnchor="middle" fill={C.extension.text} fontSize="20" fontWeight="900" letterSpacing="1">FINITE MODES</text>
+                        <text x="0" y="-40" textAnchor="middle" fill={C.extension.text} fontSize="20" fontWeight="800" letterSpacing="1">FINITE MODES</text>
                         <text x="0" y="-5" textAnchor="middle" fill={C.text.primary} fontSize="16" fontWeight="600">Individual bodies • Objects</text>
                         <text x="0" y="25" textAnchor="middle" fill={C.extension.text} fontSize="16" fontWeight="500">Physical states • Movements</text>
 
                         <g transform="translate(0, 120)">
-                             <rect x="-140" y="-25" width="280" height="50" rx="4" fill={C.extension.fill} stroke={C.extension.stroke} strokeWidth="2" />
-                             <text x="0" y="0" textAnchor="middle" fill={C.extension.text} fontSize="14" fontWeight="800">HUMAN BODY</text>
-                             <text x="0" y="18" textAnchor="middle" fill={C.extension.text} fontSize="15" fontStyle="italic">= complex individual</text>
-                             <circle cx="-140" cy="0" r="5" fill={C.extension.stroke} />
+                            <rect x="-140" y="-25" width="280" height="50" rx="6" fill={C.extension.fill} stroke={C.extension.stroke} strokeWidth="2" />
+                            <text x="0" y="0" textAnchor="middle" fill={C.extension.text} fontSize="14" fontWeight="800">HUMAN BODY</text>
+                            <text x="0" y="18" textAnchor="middle" fill={C.extension.text} fontSize="15" fontStyle="italic">= complex individual</text>
+                            <circle cx="-140" cy="0" r="5" fill={C.extension.stroke} />
                         </g>
                     </InteractiveGroup>
 

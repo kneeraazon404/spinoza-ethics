@@ -43,11 +43,11 @@ const ParallelismDiagram = () => {
     return (
         <div className="w-full min-h-[1100px] relative font-sans overflow-hidden" style={{ backgroundColor: C.bg }}>
             {/* HEADER */}
-            <div className="absolute top-2 left-10 z-10 pointer-events-none">
-                <h2 className="text-slate-400 text-sm font-bold tracking-widest uppercase mb-1">
+            <div className="absolute top-4 left-8 z-10 pointer-events-none">
+                <h2 className="text-slate-400 text-sm font-semibold tracking-widest uppercase mb-1">
                     ETHICA ORDINE GEOMETRICO DEMONSTRATA
                 </h2>
-                <h3 className="text-slate-300 text-xs font-semibold tracking-wider uppercase">
+                <h3 className="text-slate-300 text-xs font-medium tracking-wider uppercase">
                     / MIND-BODY PARALLELISM
                 </h3>
             </div>
@@ -113,7 +113,7 @@ const ParallelismDiagram = () => {
 
                         <InteractiveGroup onClick={() => handleNodeClick("Substance", "God or Nature")}>
                             <rect x="-220" y="-60" width="440" height="120" rx="8" fill="url(#gradSubstance)" stroke={C.substance.stroke} strokeWidth="3" filter="url(#softShadow)" />
-                            <text y="-10" textAnchor="middle" fill={C.substance.text} fontSize="20" fontWeight="900" letterSpacing="1">SUBSTANCE</text>
+                            <text y="-10" textAnchor="middle" fill={C.substance.text} fontSize="20" fontWeight="800" letterSpacing="1">SUBSTANCE</text>
                             <text y="20" textAnchor="middle" fill={C.substance.text} fontSize="16" fontWeight="600" fontStyle="italic">One Infinite Reality</text>
                         </InteractiveGroup>
                     </g>
@@ -121,19 +121,19 @@ const ParallelismDiagram = () => {
                     {/* Left Column: Thought */}
                     <g transform="translate(150, 240)">
                         <rect width="400" height="750" rx="8" fill={C.thought.fill} stroke={C.thought.stroke} strokeWidth="2" fillOpacity="0.3" />
-                        <text x="200" y="40" textAnchor="middle" fill={C.thought.text} fontSize="14" fontWeight="900" letterSpacing="2" opacity="0.6">ATTRIBUTE OF THOUGHT</text>
+                        <text x="200" y="40" textAnchor="middle" fill={C.thought.text} fontSize="14" fontWeight="800" letterSpacing="2" opacity="0.6">ATTRIBUTE OF THOUGHT</text>
 
                         {/* God as Thinking Thing */}
                         <InteractiveGroup transform="translate(200, 100)" onClick={() => handleNodeClick("God as Thinking Thing", "Substance under the attribute of thought")}>
-                            <rect x="-160" y="-40" width="320" height="80" rx="6" fill="url(#gradThought)" stroke={C.thought.stroke} strokeWidth="3" filter="url(#softShadow)" />
-                            <text y="5" textAnchor="middle" fill={C.thought.text} fontSize="20" fontWeight="900" letterSpacing="0.5">GOD as Thinking Thing</text>
+                            <rect x="-160" y="-40" width="320" height="80" rx="8" fill="url(#gradThought)" stroke={C.thought.stroke} strokeWidth="3" filter="url(#softShadow)" />
+                            <text y="5" textAnchor="middle" fill={C.thought.text} fontSize="20" fontWeight="800" letterSpacing="0.5">GOD as Thinking Thing</text>
                         </InteractiveGroup>
 
                         <path d="M 200 140 C 200 155, 200 165, 200 180" stroke={C.thought.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowThought)" fill="none" />
 
                         {/* Infinite Mode */}
                         <InteractiveGroup transform="translate(200, 220)" onClick={() => handleNodeClick("Infinite Intellect", "Immediate infinite mode of thought")}>
-                            <rect x="-140" y="-40" width="280" height="80" rx="6" fill="white" stroke={C.thought.stroke} strokeWidth="2" strokeDasharray="8,5" filter="url(#softShadow)" />
+                            <rect x="-140" y="-40" width="280" height="80" rx="8" fill="white" stroke={C.thought.stroke} strokeWidth="2" strokeDasharray="8,5" filter="url(#softShadow)" />
                             <text y="-5" textAnchor="middle" fill={C.thought.text} fontSize="16" fontWeight="800">Infinite Immediate Mode</text>
                             <text y="20" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="400" fontStyle="italic">(Infinite Intellect, Laws of Thought)</text>
                         </InteractiveGroup>
@@ -142,18 +142,18 @@ const ParallelismDiagram = () => {
 
                         {/* Causal Chains */}
                         <InteractiveGroup transform="translate(200, 340)" onClick={() => handleNodeClick("Chain of Ideas", "Order and connection of ideas")}>
-                            <rect x="-140" y="-30" width="280" height="60" rx="6" fill="white" stroke={C.thought.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <rect x="-140" y="-30" width="280" height="60" rx="8" fill="white" stroke={C.thought.stroke} strokeWidth="2" filter="url(#softShadow)" />
                             <text y="5" textAnchor="middle" fill={C.thought.text} fontSize="14" fontWeight="800">Causal Chains of Ideas</text>
                         </InteractiveGroup>
 
-                        <path d="M 200 370 C 200 385, 200 395, 200 410" stroke={C.thought.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowThought)" fill="none" />
+                        <path d="M 200 370 C 200 385, 200 395, 200 410" stroke={C.thought.stroke} strokeWidth="2" opacity="0.8" markerEnd="url(#arrowThought)" fill="none" />
 
                         {/* Finite Ideas */}
                         <InteractiveGroup transform="translate(200, 460)" onClick={() => handleNodeClick("Finite Ideas", "Individual thoughts")}>
                             <rect x="-140" y="-40" width="280" height="80" rx="8" fill="white" stroke={C.thought.stroke} strokeWidth="2" filter="url(#softShadow)" />
                             <text y="-15" textAnchor="middle" fill={C.thought.text} fontSize="16" fontWeight="800">Finite Ideas</text>
-                            <text y="10" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="600">Idea₁ → Idea₂ → Idea₃ → ...</text>
-                            <text y="25" textAnchor="middle" fill={C.thought.text} fontSize="10" fontStyle="italic">Mental causation complete within thought</text>
+                            <text y="10" textAnchor="middle" fill={C.text.secondary} fontSize="14" fontWeight="600">Idea₁ → Idea₂ → Idea₃ → ...</text>
+                            <text y="30" textAnchor="middle" fill={C.thought.text} fontSize="12" fontStyle="italic">Mental causation complete within thought</text>
                         </InteractiveGroup>
 
                         <path d="M 200 500 C 200 520, 200 540, 200 560" stroke={C.thought.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowThought)" fill="none" />
@@ -161,7 +161,7 @@ const ParallelismDiagram = () => {
                         {/* Human Mind */}
                         <InteractiveGroup transform="translate(200, 620)" onClick={() => handleNodeClick("Human Mind", "Idea of the Body")}>
                             <rect x="-160" y="-60" width="320" height="120" rx="8" fill="url(#gradThought)" stroke={C.thought.stroke} strokeWidth="3" filter="url(#softShadow)" />
-                            <text y="-20" textAnchor="middle" fill={C.thought.text} fontSize="20" fontWeight="900" letterSpacing="1">HUMAN MIND</text>
+                            <text y="-20" textAnchor="middle" fill={C.thought.text} fontSize="20" fontWeight="800" letterSpacing="1">HUMAN MIND</text>
                             <text y="10" textAnchor="middle" fill={C.thought.text} fontSize="14" fontWeight="800">= Idea of Human Body</text>
                             <text y="35" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="500">• Adequate Ideas (actions)</text>
                             <text y="55" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="500">• Inadequate Ideas (passions)</text>
@@ -171,19 +171,19 @@ const ParallelismDiagram = () => {
                     {/* Right Column: Extension */}
                     <g transform="translate(850, 240)">
                         <rect width="400" height="750" rx="8" fill={C.extension.fill} stroke={C.extension.stroke} strokeWidth="2" fillOpacity="0.3" />
-                        <text x="200" y="40" textAnchor="middle" fill={C.extension.text} fontSize="14" fontWeight="900" letterSpacing="2" opacity="0.6">ATTRIBUTE OF EXTENSION</text>
+                        <text x="200" y="40" textAnchor="middle" fill={C.extension.text} fontSize="14" fontWeight="800" letterSpacing="2" opacity="0.6">ATTRIBUTE OF EXTENSION</text>
 
                         {/* God as Extended Thing */}
                         <InteractiveGroup transform="translate(200, 100)" onClick={() => handleNodeClick("God as Extended Thing", "Substance under the attribute of extension")}>
-                            <rect x="-160" y="-40" width="320" height="80" rx="6" fill="url(#gradExtension)" stroke={C.extension.stroke} strokeWidth="3" filter="url(#softShadow)" />
-                            <text y="5" textAnchor="middle" fill={C.extension.text} fontSize="20" fontWeight="900" letterSpacing="0.5">GOD as Extended Thing</text>
+                            <rect x="-160" y="-40" width="320" height="80" rx="8" fill="url(#gradExtension)" stroke={C.extension.stroke} strokeWidth="3" filter="url(#softShadow)" />
+                            <text y="5" textAnchor="middle" fill={C.extension.text} fontSize="20" fontWeight="800" letterSpacing="0.5">GOD as Extended Thing</text>
                         </InteractiveGroup>
 
                         <path d="M 200 140 C 200 155, 200 165, 200 180" stroke={C.extension.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowExtension)" fill="none" />
 
                         {/* Infinite Mode */}
                         <InteractiveGroup transform="translate(200, 220)" onClick={() => handleNodeClick("Motion and Rest", "Immediate infinite mode of extension")}>
-                            <rect x="-140" y="-40" width="280" height="80" rx="6" fill="white" stroke={C.extension.stroke} strokeWidth="2" strokeDasharray="8,5" filter="url(#softShadow)" />
+                            <rect x="-140" y="-40" width="280" height="80" rx="8" fill="white" stroke={C.extension.stroke} strokeWidth="2" strokeDasharray="8,5" filter="url(#softShadow)" />
                             <text y="-5" textAnchor="middle" fill={C.extension.text} fontSize="16" fontWeight="800">Infinite Immediate Mode</text>
                             <text y="20" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="400" fontStyle="italic">(Motion & Rest, Laws of Physics)</text>
                         </InteractiveGroup>
@@ -192,18 +192,18 @@ const ParallelismDiagram = () => {
 
                         {/* Causal Chains */}
                         <InteractiveGroup transform="translate(200, 340)" onClick={() => handleNodeClick("Chain of Bodies", "Order and connection of things")}>
-                            <rect x="-140" y="-30" width="280" height="60" rx="6" fill="white" stroke={C.extension.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <rect x="-140" y="-30" width="280" height="60" rx="8" fill="white" stroke={C.extension.stroke} strokeWidth="2" filter="url(#softShadow)" />
                             <text y="5" textAnchor="middle" fill={C.extension.text} fontSize="14" fontWeight="800">Causal Chains of Bodies</text>
                         </InteractiveGroup>
 
-                        <path d="M 200 370 C 200 385, 200 395, 200 410" stroke={C.extension.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowExtension)" fill="none" />
+                        <path d="M 200 370 C 200 385, 200 395, 200 410" stroke={C.extension.stroke} strokeWidth="2" opacity="0.8" markerEnd="url(#arrowExtension)" fill="none" />
 
                         {/* Finite Bodies */}
                         <InteractiveGroup transform="translate(200, 460)" onClick={() => handleNodeClick("Finite Bodies", "Individual physical things")}>
                             <rect x="-140" y="-40" width="280" height="80" rx="8" fill="white" stroke={C.extension.stroke} strokeWidth="2" filter="url(#softShadow)" />
                             <text y="-15" textAnchor="middle" fill={C.extension.text} fontSize="16" fontWeight="800">Finite Bodies</text>
-                            <text y="10" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="600">Body₁ → Body₂ → Body₃ → ...</text>
-                            <text y="25" textAnchor="middle" fill={C.extension.text} fontSize="10" fontStyle="italic">Physical causation complete within extension</text>
+                            <text y="10" textAnchor="middle" fill={C.text.secondary} fontSize="14" fontWeight="600">Body₁ → Body₂ → Body₃ → ...</text>
+                            <text y="30" textAnchor="middle" fill={C.extension.text} fontSize="12" fontStyle="italic">Physical causation complete within extension</text>
                         </InteractiveGroup>
 
                         <path d="M 200 500 C 200 520, 200 540, 200 560" stroke={C.extension.stroke} strokeWidth="3" opacity="0.8" markerEnd="url(#arrowExtension)" fill="none" />
@@ -211,7 +211,7 @@ const ParallelismDiagram = () => {
                         {/* Human Body */}
                         <InteractiveGroup transform="translate(200, 620)" onClick={() => handleNodeClick("Human Body", "Complex physical individual")}>
                             <rect x="-160" y="-60" width="320" height="120" rx="8" fill="url(#gradExtension)" stroke={C.extension.stroke} strokeWidth="3" filter="url(#softShadow)" />
-                            <text y="-20" textAnchor="middle" fill={C.extension.text} fontSize="20" fontWeight="900" letterSpacing="1">HUMAN BODY</text>
+                            <text y="-20" textAnchor="middle" fill={C.extension.text} fontSize="20" fontWeight="800" letterSpacing="1">HUMAN BODY</text>
                             <text y="10" textAnchor="middle" fill={C.extension.text} fontSize="14" fontWeight="800">= Complex Physical Individual</text>
                             <text y="35" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="500">• Body&apos;s affections</text>
                             <text y="55" textAnchor="middle" fill={C.text.secondary} fontSize="12" fontWeight="500">• Physical states & motions</text>
@@ -220,10 +220,10 @@ const ParallelismDiagram = () => {
 
                     {/* Parallelism Connection */}
                     <g transform="translate(700, 860)">
-                        <path d="M -120 0 L 120 0" stroke="#ec4899" strokeWidth="4" strokeDasharray="8 4" markerStart="url(#arrowParallel)" markerEnd="url(#arrowParallel)" />
+                        <path d="M -120 0 L 120 0" stroke="#ec4899" strokeWidth="2" strokeDasharray="8 4" markerStart="url(#arrowParallel)" markerEnd="url(#arrowParallel)" />
                         <InteractiveGroup transform="translate(0, 0)" onClick={() => handleNodeClick("Parallelism", "IIP7: The order and connection of ideas is the same as the order and connection of things.")}>
-                            <rect x="-80" y="-20" width="160" height="40" rx="6" fill="url(#gradParallel)" stroke="#ec4899" strokeWidth="2" filter="url(#softShadow)" />
-                            <text y="5" textAnchor="middle" fill="#831843" fontSize="14" fontWeight="900" letterSpacing="1">PARALLELISM</text>
+                            <rect x="-80" y="-20" width="160" height="40" rx="8" fill="url(#gradParallel)" stroke="#ec4899" strokeWidth="2" filter="url(#softShadow)" />
+                            <text y="5" textAnchor="middle" fill="#831843" fontSize="14" fontWeight="800" letterSpacing="1">PARALLELISM</text>
                         </InteractiveGroup>
                     </g>
 
