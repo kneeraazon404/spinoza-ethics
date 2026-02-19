@@ -14,7 +14,7 @@ import { useTheme } from '@/context/ThemeContext';
 
 const SpinozaEthicsDiagram = () => {
     const [activeView, setActiveView] = useState('hierarchy');
-    const { theme, toggleTheme } = useTheme();
+    const { theme, toggleTheme, mounted } = useTheme();
 
     const views = [
         { id: 'hierarchy', name: 'Hierarchy', icon: Network },
@@ -28,7 +28,8 @@ const SpinozaEthicsDiagram = () => {
     ];
 
     return (
-        <div className="w-full min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans flex flex-col">
+        <div className="w-full min-h-screen font-sans flex flex-col"
+             style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }}>
 
             {/* HEADER CONTENT */}
             <header className="w-full max-w-5xl mx-auto pt-12 pb-8 px-6 text-center z-10">
@@ -68,15 +69,15 @@ const SpinozaEthicsDiagram = () => {
                         onClick={toggleTheme}
                         className="flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 border-4 active:scale-95"
                         style={{
-                            backgroundColor: theme === 'light' ? '#ffffff' : '#1f2937',
-                            borderColor: theme === 'light' ? '#9ca3af' : '#f3f4f6',
+                            backgroundColor: mounted && theme === 'dark' ? '#1f2937' : '#ffffff',
+                            borderColor: mounted && theme === 'dark' ? '#f3f4f6' : '#9ca3af',
                         }}
-                        title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+                        title={mounted && theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
                     >
-                        {theme === 'light' ? (
-                            <Sun size={26} strokeWidth={2.5} className="text-yellow-500" />
-                        ) : (
+                        {mounted && theme === 'dark' ? (
                             <Moon size={26} strokeWidth={2.5} className="text-white" />
+                        ) : (
+                            <Sun size={26} strokeWidth={2.5} className="text-yellow-500" />
                         )}
                     </button>
                 </div>

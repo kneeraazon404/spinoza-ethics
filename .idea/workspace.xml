@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66682cd1-ac32-4cdf-bb73-aac3dbb2a9af" name="Changes" comment="Theme switcher and puterjs add now" />
+    <list default="true" id="66682cd1-ac32-4cdf-bb73-aac3dbb2a9af" name="Changes" comment="Theme switcher and puterjs add now">
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SpinozaEthicsDiagram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SpinozaEthicsDiagram.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/ThemeContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/ThemeContext.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,7 +28,7 @@
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="AISelfReview" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -95,7 +99,7 @@
       <workItem from="1764738308579" duration="22000" />
       <workItem from="1764738336987" duration="91000" />
       <workItem from="1764738433743" duration="1634000" />
-      <workItem from="1771513740432" duration="10677000" />
+      <workItem from="1771513740432" duration="11626000" />
     </task>
     <task id="LOCAL-00001" summary="Theme switcher and puterjs add">
       <option name="closed" value="true" />
@@ -121,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771527630338</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Theme switcher and puterjs add now">
+      <option name="closed" value="true" />
+      <created>1771528311164</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1771528311164</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

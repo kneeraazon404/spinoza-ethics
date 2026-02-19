@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useLayoutEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -8,6 +8,7 @@ interface ThemeContextType {
     theme: Theme;
     toggleTheme: () => void;
     setTheme: (theme: Theme) => void;
+    mounted: boolean;
 }
 
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -18,7 +19,8 @@ export const useTheme = () => {
         return {
             theme: 'light' as Theme,
             toggleTheme: () => {},
-            setTheme: () => {}
+            setTheme: () => {},
+            mounted: false
         };
     }
     return context;
@@ -43,10 +45,15 @@ interface ThemeProviderProps {
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     const [theme, setThemeState] = useState<Theme>(getInitialTheme);
+    const [mounted, setMounted] = useState(false);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const setTheme = (newTheme: Theme) => {
         setThemeState(newTheme);
@@ -58,7 +65,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     };
 
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+        <ThemeContext.Provider value={{ theme, toggleTheme, setTheme, mounted }}>
             {children}
         </ThemeContext.Provider>
     );
