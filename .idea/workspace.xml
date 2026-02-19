@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66682cd1-ac32-4cdf-bb73-aac3dbb2a9af" name="Changes" comment="Theme switcher and puterjs add">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/GeometricAdvisor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GeometricAdvisor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SpinozaEthicsDiagram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SpinozaEthicsDiagram.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/diagrams/AboutView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/diagrams/AboutView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/diagrams/AffectsDiagram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/diagrams/AffectsDiagram.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/diagrams/FlowDiagram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/diagrams/FlowDiagram.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/diagrams/HierarchyDiagram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/diagrams/HierarchyDiagram.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/diagrams/ParallelismDiagram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/diagrams/ParallelismDiagram.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/diagrams/PowerDiagram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/diagrams/PowerDiagram.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/diagrams/SummaryView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/diagrams/SummaryView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/diagrams/SystemDiagram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/diagrams/SystemDiagram.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/SpinozaContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/SpinozaContext.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="66682cd1-ac32-4cdf-bb73-aac3dbb2a9af" name="Changes" comment="Theme switcher and puterjs add now" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,7 +24,7 @@
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="AISelfReview" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -52,12 +36,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "main",
     "js.debugger.nextJs.config.created.client": "true",
@@ -109,8 +95,33 @@
       <workItem from="1764738308579" duration="22000" />
       <workItem from="1764738336987" duration="91000" />
       <workItem from="1764738433743" duration="1634000" />
-      <workItem from="1771513740432" duration="9621000" />
+      <workItem from="1771513740432" duration="10677000" />
     </task>
+    <task id="LOCAL-00001" summary="Theme switcher and puterjs add">
+      <option name="closed" value="true" />
+      <created>1771527554982</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1771527554982</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Theme switcher and puterjs add now">
+      <option name="closed" value="true" />
+      <created>1771527595105</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1771527595105</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Theme switcher and puterjs add now">
+      <option name="closed" value="true" />
+      <created>1771527630338</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1771527630338</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -128,8 +139,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge pull request #1 from kneeraazon404/vercel/react-server-components-cve-vu-xdfauh&#10;&#10;Fix React Server Components CVE vulnerabilities" />
     <MESSAGE value="Theme switcher and puterjs add" />
-    <option name="LAST_COMMIT_MESSAGE" value="Theme switcher and puterjs add" />
+    <MESSAGE value="Theme switcher and puterjs add now" />
+    <option name="LAST_COMMIT_MESSAGE" value="Theme switcher and puterjs add now" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
