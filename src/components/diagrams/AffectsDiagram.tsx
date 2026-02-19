@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSpinoza } from '@/context/SpinozaContext';
+import { useThemeColors } from '@/hooks/useThemeColors';
 
 interface InteractiveGroupProps {
     transform?: string;
@@ -23,6 +24,7 @@ const InteractiveGroup = ({ transform, onClick, children, className = "" }: Inte
 
 const AffectsDiagram = () => {
     const { explainConcept } = useSpinoza();
+    const C = useThemeColors();
 
     const handleNodeClick = (title: string, context: string) => {
         explainConcept(title, context);
@@ -31,24 +33,13 @@ const AffectsDiagram = () => {
     const CANVAS_WIDTH = 1100;
     const CANVAS_HEIGHT = 800;
 
-    // Standardized Palette
-    const C = {
-        bg: "#ffffff",
-        mind: { stroke: "#4f46e5", fill: "#e0e7ff", text: "#312e81" }, // Indigo (Conatus)
-        bondage: { stroke: "#ea580c", fill: "#ffedd5", text: "#9a3412" }, // Orange
-        freedom: { stroke: "#059669", fill: "#d1fae5", text: "#065f46" }, // Emerald
-        transform: { stroke: "#a855f7", fill: "#f3e8ff", text: "#6b21a8" }, // Purple
-        text: { primary: "#1f2937", secondary: "#4b5563", muted: "#94a3b8" }
-    };
-
     return (
         <div className="w-full min-h-screen relative font-sans overflow-hidden" style={{ backgroundColor: C.bg }}>
-            {/* HEADER */}
             <div className="absolute top-4 left-8 z-10 pointer-events-none">
-                <h2 className="text-slate-400 text-sm font-semibold tracking-widest uppercase mb-1.5">
+                <h2 className="text-[var(--text-muted)] text-sm font-semibold tracking-widest uppercase mb-1.5">
                     Ethica: De Affectibus
                 </h2>
-                <h3 className="text-slate-300 text-xs font-medium tracking-wider uppercase">
+                <h3 className="text-[var(--text-muted)] text-xs font-medium tracking-wider uppercase opacity-60">
                     / From Bondage to Freedom
                 </h3>
             </div>
@@ -56,12 +47,10 @@ const AffectsDiagram = () => {
             <div className="w-full max-w-[1600px] mx-auto aspect-11/8 relative px-4">
                 <svg viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`} preserveAspectRatio="xMidYMid meet" className="w-full h-full">
                     <defs>
-                        {/* Grid Pattern */}
                         <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" strokeWidth="1" />
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke={C.grid} strokeWidth="1" />
                         </pattern>
 
-                        {/* Soft Shadow */}
                         <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
                             <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
                             <feOffset dx="2" dy="3" result="offsetblur" />
@@ -74,22 +63,21 @@ const AffectsDiagram = () => {
                             </feMerge>
                         </filter>
 
-                        {/* Gradients */}
                         <linearGradient id="gradConatus" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor={C.mind.fill} />
-                            <stop offset="100%" stopColor="#c7d2fe" />
+                            <stop offset="0%" stopColor={C.thought.fill} />
+                            <stop offset="100%" stopColor={C.thought.fill} stopOpacity="0.7" />
                         </linearGradient>
                         <linearGradient id="gradBondage" x1="0%" y1="0%" x2="0%" y2="100%">
                             <stop offset="0%" stopColor={C.bondage.fill} />
-                            <stop offset="100%" stopColor="#fed7aa" />
+                            <stop offset="100%" stopColor={C.bondage.fill} stopOpacity="0.7" />
                         </linearGradient>
                         <linearGradient id="gradFreedom" x1="0%" y1="0%" x2="0%" y2="100%">
                             <stop offset="0%" stopColor={C.freedom.fill} />
-                            <stop offset="100%" stopColor="#a7f3d0" />
+                            <stop offset="100%" stopColor={C.freedom.fill} stopOpacity="0.7" />
                         </linearGradient>
                         <linearGradient id="gradTransform" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#c084fc" />
-                            <stop offset="100%" stopColor="#a855f7" />
+                            <stop offset="0%" stopColor={C.substance.stroke} />
+                            <stop offset="100%" stopColor={C.substance.stroke} stopOpacity="0.8" />
                         </linearGradient>
 
                         <marker id="arrowBondage" markerWidth="5" markerHeight="3" refX="4" refY="1.5" orient="auto">
@@ -99,29 +87,25 @@ const AffectsDiagram = () => {
                             <path d="M0,0 L5,1.5 L0,3 L0,0" fill={C.freedom.stroke} />
                         </marker>
                         <marker id="arrowPurple" markerWidth="5" markerHeight="3" refX="4" refY="1.5" orient="auto">
-                            <path d="M0,0 L5,1.5 L0,3 L0,0" fill={C.transform.stroke} />
+                            <path d="M0,0 L5,1.5 L0,3 L0,0" fill={C.substance.stroke} />
                         </marker>
                     </defs>
 
-                    {/* Background Grid */}
                     <rect width="100%" height="100%" fill="url(#grid)" />
 
                     <text x={CANVAS_WIDTH / 2} y="35" textAnchor="middle" fontSize="20" fontWeight="800" fill={C.text.primary} letterSpacing="0.5">
                         From Bondage to Freedom Through Understanding
                     </text>
 
-                    {/* Central Conatus */}
                     <InteractiveGroup transform={`translate(${CANVAS_WIDTH / 2}, 100)`} onClick={() => handleNodeClick("Conatus", "Striving to persevere")}>
-                        <rect x="-150" y="-50" width="300" height="100" rx="8" fill="url(#gradConatus)" stroke={C.mind.stroke} strokeWidth="3" filter="url(#softShadow)" />
-                        <text x="0" y="-5" textAnchor="middle" fontSize="18" fontWeight="800" fill={C.mind.text} letterSpacing="1">CONATUS</text>
-                        <text x="0" y="20" textAnchor="middle" fontSize="14" fontWeight="500" fill={C.mind.text}>Striving to persevere = Essence (IIIP7)</text>
+                        <rect x="-150" y="-50" width="300" height="100" rx="8" fill="url(#gradConatus)" stroke={C.thought.stroke} strokeWidth="3" filter="url(#softShadow)" />
+                        <text x="0" y="-5" textAnchor="middle" fontSize="18" fontWeight="800" fill={C.thought.text} letterSpacing="1">CONATUS</text>
+                        <text x="0" y="20" textAnchor="middle" fontSize="14" fontWeight="500" fill={C.thought.text}>Striving to persevere = Essence (IIIP7)</text>
                     </InteractiveGroup>
 
-                    {/* Connection from conatus */}
                     <path d={`M ${CANVAS_WIDTH / 2 - 100} 120 Q 270 160 270 260`} stroke={C.bondage.stroke} strokeWidth="2" fill="none" strokeDasharray="5,5" />
                     <path d={`M ${CANVAS_WIDTH / 2 + 100} 120 Q 830 160 830 260`} stroke={C.freedom.stroke} strokeWidth="2" fill="none" strokeDasharray="5,5" />
 
-                    {/* Left path - Bondage */}
                     <g transform="translate(70, 200)">
                         <rect width="400" height="500" rx="8" fill={C.bondage.fill} stroke={C.bondage.stroke} strokeWidth="2" fillOpacity="0.1" />
                         <text x="200" y="35" textAnchor="middle" fontSize="18" fontWeight="800" fill={C.bondage.text} letterSpacing="1">
@@ -129,7 +113,7 @@ const AffectsDiagram = () => {
                         </text>
 
                         <InteractiveGroup transform="translate(50, 60)" onClick={() => handleNodeClick("Inadequate Ideas", "Confused perception")}>
-                            <rect width="300" height="80" rx="8" fill="white" stroke={C.bondage.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <rect width="300" height="80" rx="8" fill={C.white} stroke={C.bondage.stroke} strokeWidth="2" filter="url(#softShadow)" />
                             <text x="150" y="25" textAnchor="middle" fontSize="15" fontWeight="800" fill={C.bondage.text}>
                                 INADEQUATE IDEAS
                             </text>
@@ -144,7 +128,7 @@ const AffectsDiagram = () => {
                         <path d="M 200 140 L 200 170" stroke={C.bondage.stroke} strokeWidth="2" markerEnd="url(#arrowBondage)" />
 
                         <InteractiveGroup transform="translate(50, 170)" onClick={() => handleNodeClick("Passive Affects", "Passions")}>
-                            <rect width="300" height="140" rx="8" fill="white" stroke={C.bondage.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <rect width="300" height="140" rx="8" fill={C.white} stroke={C.bondage.stroke} strokeWidth="2" filter="url(#softShadow)" />
                             <text x="150" y="25" textAnchor="middle" fontSize="15" fontWeight="800" fill={C.bondage.text}>
                                 PASSIVE AFFECTS
                             </text>
@@ -190,7 +174,6 @@ const AffectsDiagram = () => {
                         </InteractiveGroup>
                     </g>
 
-                    {/* Right path - Freedom */}
                     <g transform="translate(630, 200)">
                         <rect width="400" height="500" rx="8" fill={C.freedom.fill} stroke={C.freedom.stroke} strokeWidth="2" fillOpacity="0.1" />
                         <text x="200" y="35" textAnchor="middle" fontSize="18" fontWeight="800" fill={C.freedom.text} letterSpacing="1">
@@ -198,7 +181,7 @@ const AffectsDiagram = () => {
                         </text>
 
                         <InteractiveGroup transform="translate(50, 60)" onClick={() => handleNodeClick("Adequate Ideas", "Clear and distinct")}>
-                            <rect width="300" height="80" rx="8" fill="white" stroke={C.freedom.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <rect width="300" height="80" rx="8" fill={C.white} stroke={C.freedom.stroke} strokeWidth="2" filter="url(#softShadow)" />
                             <text x="150" y="25" textAnchor="middle" fontSize="15" fontWeight="800" fill={C.freedom.text}>
                                 ADEQUATE IDEAS
                             </text>
@@ -213,7 +196,7 @@ const AffectsDiagram = () => {
                         <path d="M 200 140 L 200 170" stroke={C.freedom.stroke} strokeWidth="2" markerEnd="url(#arrowFreedom)" />
 
                         <InteractiveGroup transform="translate(50, 170)" onClick={() => handleNodeClick("Active Affects", "Actions")}>
-                            <rect width="300" height="140" rx="8" fill="white" stroke={C.freedom.stroke} strokeWidth="2" filter="url(#softShadow)" />
+                            <rect width="300" height="140" rx="8" fill={C.white} stroke={C.freedom.stroke} strokeWidth="2" filter="url(#softShadow)" />
                             <text x="150" y="25" textAnchor="middle" fontSize="15" fontWeight="800" fill={C.freedom.text}>
                                 ACTIVE AFFECTS
                             </text>
@@ -259,9 +242,8 @@ const AffectsDiagram = () => {
                         </InteractiveGroup>
                     </g>
 
-                    {/* Transformation arrow */}
                     <g transform="translate(470, 410)">
-                        <path d="M 0 40 L 160 40" stroke={C.transform.stroke} strokeWidth="2" markerEnd="url(#arrowPurple)" strokeDasharray="10,5" />
+                        <path d="M 0 40 L 160 40" stroke={C.substance.stroke} strokeWidth="2" markerEnd="url(#arrowPurple)" strokeDasharray="10,5" />
                         <InteractiveGroup transform="translate(0, 0)" onClick={() => handleNodeClick("Transformation", "Understanding affects")}>
                             <rect width="160" height="80" rx="8" fill="url(#gradTransform)" filter="url(#softShadow)" />
                             <text x="80" y="25" textAnchor="middle" fontSize="12" fontWeight="800" fill="white" letterSpacing="0.5">
@@ -276,9 +258,8 @@ const AffectsDiagram = () => {
                         </InteractiveGroup>
                     </g>
 
-                    {/* Bottom note */}
                     <g transform="translate(150, 740)">
-                        <rect width="800" height="45" rx="8" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1.5" />
+                        <rect width="800" height="45" rx="8" fill={C.surface} stroke={C.layer.stroke} strokeWidth="1.5" />
                         <text x="400" y="28" textAnchor="middle" fontSize="12" fill={C.text.secondary} fontWeight="600">
                             Both paths are determined. Freedom ≠ Indetermination, but Self-Determination through Knowledge.
                         </text>
@@ -290,5 +271,3 @@ const AffectsDiagram = () => {
 };
 
 export default AffectsDiagram;
-
-

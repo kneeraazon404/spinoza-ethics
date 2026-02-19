@@ -4,6 +4,7 @@ import "./globals.css";
 
 import GeometricAdvisor from "@/components/GeometricAdvisor";
 import { SpinozaProvider } from "@/context/SpinozaContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -99,7 +100,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -107,10 +108,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <SpinozaProvider>
-          {children}
-          <GeometricAdvisor />
-        </SpinozaProvider>
+        <ThemeProvider>
+          <SpinozaProvider>
+            {children}
+            <GeometricAdvisor />
+          </SpinozaProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
