@@ -43,7 +43,7 @@ interface ThemeProviderProps {
     children: ReactNode;
 }
 
-export const ThemeProvider = ({ children }: ThemeProviderProps) => {
+const ThemeProvider = ({ children }: ThemeProviderProps) => {
     const [theme, setThemeState] = useState<Theme>(getInitialTheme);
     const [mounted, setMounted] = useState(false);
 
@@ -70,3 +70,4 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
         </ThemeContext.Provider>
     );
 };
+export default ThemeProvider

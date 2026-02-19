@@ -4,7 +4,7 @@ import "./globals.css";
 
 import GeometricAdvisor from "@/components/GeometricAdvisor";
 import { SpinozaProvider } from "@/context/SpinozaContext";
-import { ThemeProvider } from "@/context/ThemeContext";
+import ThemeProvider from "@/context/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
