@@ -63,7 +63,7 @@ cp .env.example .env.local
 Create a `.env.local` file in the root directory:
 
 ```env
-GROQ_API_KEY=your_groq_api_key_here
+NEXT_PUBLIC_GROQ_API_KEY=your_groq_api_key_here
 ```
 
 ### Development
@@ -128,14 +128,14 @@ spinoza-ethics/
 
 1. Push code to GitHub
 2. Import project in [Vercel](https://vercel.com/new)
-3. Add environment variable `GROQ_API_KEY` in Vercel settings
+3. Add environment variable `NEXT_PUBLIC_GROQ_API_KEY` in Vercel settings
 4. Deploy
 
 ### Environment Variables for Production
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `GROQ_API_KEY` | Groq Cloud API key | Yes |
+| `NEXT_PUBLIC_GROQ_API_KEY` | Groq Cloud API key | Yes |
 
 ## License
 

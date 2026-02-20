@@ -1,50 +1,88 @@
 # Dependencies
-/node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
-
-# Testing
-/coverage
-
-# Next.js
-/.next/
-/out/
-
-.idea
-# Production
-/build
-
-# Misc
-.DS_Store
-*.pem
-
-# Debug logs
-npm-debug.log*gss
+node_modules/
+npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Local environment files
+# Production
+.next/
+out/
+build/
+dist/
+*.tgz
+
+# Environment variables (NEVER COMMIT)
 .env
-.env*.local
+.env.local
+.env.*.local
+.env.production.local
+.env.development.local
+.env.test.local
 
-# Vercel
-.vercel
-
-# TypeScript
-*.tsbuildinfo
-next-env.d.ts
-
-# IDE
-.idea/
+# IDE / Editor
 .vscode/
-*.swp
-*.swo
-*~
+.vscode-test
+.idea/
+.DS_Store
+.AppleDouble
+.LSOverride
+*.cer
+*.csr
+*.jks
+*.p12
+*.p7b
+*.pfx
+*.pem
+*.sublime-workspace
+*.sublime-project
+.code-workspace
 
-# OS
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+.test/
+.jest/
+
+# Misc
+.cache/
+.turbo/
+turbo.json
+.eslintcache
+.stylelintcache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_esm/
+.rts2_cache_umd/
+
+# Logs
+logs/
+*.log
+npm-debug.log
+
+# System files
+thumbs.db
 Thumbs.db
 
-# Project specific
-array-hashes.md
-hashes.md
+# OS files
+.DS_Store
+.env.*.swp
+.env.*.swo
+
+# Optional npm files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Vercel and deployment files
+.vercel
+.env.*.local
+.env.production
+
+# Developer files
+*.bak
+*.tmp
+*.swap
+.debug/

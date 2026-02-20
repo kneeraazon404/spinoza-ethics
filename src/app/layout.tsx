@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -16,19 +16,46 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Viewport configuration
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#1f2937" },
+  ],
+};
+
+// Metadata configuration
 export const metadata: Metadata = {
-  metadataBase: new URL('https://spinoza-ethics.vercel.app'),
+  metadataBase: new URL("https://spinoza-ethics.vercel.app"),
   title: {
     default: "Spinoza's Ethics - Interactive Visual Exploration",
     template: "%s | Spinoza's Ethics",
   },
-  description: "Explore Baruch Spinoza's Ethics through interactive diagrams and AI-powered explanations. Visualize the hierarchy of being, attributes, modes, and the path to blessedness.",
+  description:
+    "Explore Baruch Spinoza's Ethics through interactive diagrams and AI-powered explanations. Visualize the hierarchy of being, attributes, modes, and the path to blessedness.",
   keywords: [
-    "Spinoza", "Ethics", "Philosophy", "Interactive", "Visualization", "Diagram",
-    "Metaphysics", "Epistemology", "God", "Nature", "Substance",
-    "Baruch Spinoza", "Benedict de Spinoza", "AI", "Artificial Intelligence"
+    "Spinoza",
+    "Ethics",
+    "Philosophy",
+    "Interactive",
+    "Visualization",
+    "Diagram",
+    "Metaphysics",
+    "Epistemology",
+    "God",
+    "Nature",
+    "Substance",
+    "Baruch Spinoza",
+    "Benedict de Spinoza",
+    "AI",
+    "Artificial Intelligence",
+    "Educational",
   ],
-  authors: [{ name: "Kneerazon" }],
+  authors: [{ name: "Kneerazon", url: "https://kneeraazon.com" }],
   creator: "Kneerazon",
   publisher: "Kneerazon",
   formatDetection: {
@@ -38,14 +65,15 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Spinoza's Ethics - Interactive Visual Exploration",
-    description: "Explore Baruch Spinoza's Ethics through interactive diagrams and AI-powered explanations.",
-    url: 'https://spinoza-ethics.vercel.app',
+    description:
+      "Explore Baruch Spinoza's Ethics through interactive diagrams and AI-powered explanations.",
+    url: "https://spinoza-ethics.vercel.app",
     siteName: "Spinoza's Ethics Interactive",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: '/og-image.png',
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Spinoza's Ethics Interactive Diagram",
@@ -55,8 +83,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Spinoza's Ethics - Interactive Visual Exploration",
-    description: "Explore Baruch Spinoza's Ethics through interactive diagrams and AI-powered explanations.",
-    images: ['/og-image.png'],
+    description:
+      "Explore Baruch Spinoza's Ethics through interactive diagrams and AI-powered explanations.",
+    images: ["/og-image.png"],
+    creator: "@kneeraazon",
   },
   robots: {
     index: true,
@@ -70,43 +100,53 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: "/favicon.ico",
   },
-  manifest: '/manifest.json',
+  manifest: "/manifest.json",
+  category: "Education",
+  alternates: {
+    canonical: "https://spinoza-ethics.vercel.app",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface RootLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
     name: "Spinoza's Ethics Interactive",
     description: "Interactive visual exploration of Spinoza's Ethics.",
-    applicationCategory: 'EducationalApplication',
-    operatingSystem: 'Web',
+    applicationCategory: "EducationalApplication",
+    operatingSystem: "Web",
     offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
     },
     author: {
-      '@type': 'Person',
-      name: 'Kneerazon',
+      "@type": "Person",
+      name: "Kneerazon",
+      url: "https://kneeraazon.com",
     },
+    inLanguage: "en",
+    image: "/og-image.png",
+    url: "https://spinoza-ethics.vercel.app",
   };
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         <ThemeProvider>
           <SpinozaProvider>
             {children}

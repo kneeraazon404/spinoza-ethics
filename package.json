@@ -1,12 +1,19 @@
 {
-  "name": "spinoza-app",
-  "version": "0.1.0",
+  "name": "spinoza-ethics-app",
+  "version": "1.0.0",
+  "description": "Interactive visual exploration of Baruch Spinoza's Ethics",
+  "author": "kneeraazon",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,tsx,json,css,md}\"",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "lucide-react": "^0.554.0",
@@ -22,7 +29,12 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
+    "prettier": "^3.2.5",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }
