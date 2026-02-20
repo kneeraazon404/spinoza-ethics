@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutView = () => {
     return (
-        <div className="w-full h-full p-8 md:p-12 overflow-y-auto bg-[var(--surface)] rounded-2xl">
+        <div className="w-full h-full p-8 md:p-12 overflow-y-auto bg-[var(--surface)] rounded-2xl border-bt-xl border-tr-xl">
             <div className="max-w-6xl mx-auto">
                 <h2 className="text-3xl font-black text-[var(--text-primary)] mb-8 text-center whitespace-nowrap">
                     ABOUT THIS PROJECT
@@ -56,7 +56,7 @@ const AboutView = () => {
                         </p>
                     </section>
 
-                    <section className="bg-[var(--surface-muted)] p-8 rounded-xl border border-[var(--border)] mt-12">
+                    <section className="bg-[var(--surface-muted)] p-8 rounded-xl border border-[var(--border)] mt-12 border-bt-xl border-tr-xl">
                         <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-4">Your Feedback</h3>
                         <p className="text-[var(--text-secondary)] text-justify mb-4">
                             This is a living project, and I want to make it the best possible resource for students of Spinoza.

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, type FC, type ReactNode } from "react";
 import {
   Info,
   Zap,
@@ -51,7 +51,7 @@ const VIEWS: View[] = [
   { id: "summary", name: "Read Summary", icon: BookOpen },
 ];
 
-const SpinozaEthicsDiagram: React.FC = () => {
+const SpinozaEthicsDiagram: FC = () => {
   const [activeView, setActiveView] = useState<ViewId>("hierarchy");
   const { theme, toggleTheme, mounted } = useTheme();
 
@@ -61,8 +61,8 @@ const SpinozaEthicsDiagram: React.FC = () => {
 
   const currentYear = useMemo(() => new Date().getFullYear(), []);
 
-  const renderDiagram = useMemo(() => {
-    const diagramMap: Record<ViewId, React.ReactNode> = {
+    const renderDiagram = useMemo(() => {
+    const diagramMap: Record<ViewId, ReactNode> = {
       about: <AboutView />,
       hierarchy: <HierarchyDiagram />,
       flow: <FlowDiagram />,
@@ -75,9 +75,9 @@ const SpinozaEthicsDiagram: React.FC = () => {
     return diagramMap[activeView];
   }, [activeView]);
 
-  return (
+    return (
     <div
-      className="w-full min-h-screen font-sans flex flex-col"
+      className="w-full min-h-screen font-sans flex flex-col border-bt-xl border-tr-xl"
       style={{ backgroundColor: "var(--background)", color: "var(--foreground)" }}
     >
       {/* HEADER CONTENT */}
@@ -107,7 +107,7 @@ const SpinozaEthicsDiagram: React.FC = () => {
                   isActive
                     ? "bg-[var(--btn-active-bg)] text-[var(--btn-active-text)] border-[var(--btn-active-border)] shadow-lg scale-105"
                     : "bg-[var(--btn-inactive-bg)] text-[var(--btn-inactive-text)] border-[var(--btn-inactive-border)] hover:border-[var(--border-hover)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-muted)]"
-                }`}
+                } border-bt-xl border-tr-xl`}
                 aria-current={isActive ? "page" : undefined}
               >
                 <Icon
@@ -123,7 +123,7 @@ const SpinozaEthicsDiagram: React.FC = () => {
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 border-4 active:scale-95"
+            className="flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 border-4 active:scale-95 border-bt-xl border-tr-xl"
             style={{
               backgroundColor:
                 mounted && theme === "dark" ? "#1f2937" : "#ffffff",
@@ -158,7 +158,7 @@ const SpinozaEthicsDiagram: React.FC = () => {
 
       {/* DIAGRAM CONTAINER */}
       <main className="w-full max-w-[1800px] mx-auto px-2 md:px-6 flex-grow mb-12">
-        <div className="w-full overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)]/50 backdrop-blur-sm relative">
+        <div className="w-full overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)]/50 backdrop-blur-sm relative border-bt-xl border-tr-xl">
           <div className="w-full overflow-x-auto">
             <div className="min-w-[1000px]">{renderDiagram}</div>
           </div>

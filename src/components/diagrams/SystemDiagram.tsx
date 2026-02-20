@@ -34,7 +34,7 @@ const SystemDiagram = () => {
     const CANVAS_HEIGHT = 1200;
 
     return (
-        <div className="w-full min-h-screen relative font-sans overflow-hidden" style={{ backgroundColor: C.bg }}>
+        <div className="w-full min-h-screen relative font-sans overflow-hidden border-bt-xl border-tr-xl" style={{ backgroundColor: C.bg }}>
             <div className="absolute top-4 left-8 z-10 pointer-events-none">
                 <h2 className="text-[var(--text-muted)] text-sm font-semibold tracking-widest uppercase mb-1.5">
                     Ethica Ordine Geometrico Demonstrata
@@ -45,7 +45,8 @@ const SystemDiagram = () => {
             </div>
 
             <div className="w-full max-w-[1600px] mx-auto aspect-14/12 relative px-4">
-                <svg viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`} preserveAspectRatio="xMidYMid meet" className="w-full h-full font-sans">
+                <svg aria-labelledby="system-title" role="img" viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`} preserveAspectRatio="xMidYMid meet" className="w-full h-full font-sans">
+                    <title id="system-title">Complete system diagram of Spinoza's Ethics</title>
                     <defs>
                         <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
                             <feGaussianBlur in="SourceAlpha" stdDeviation="3" />

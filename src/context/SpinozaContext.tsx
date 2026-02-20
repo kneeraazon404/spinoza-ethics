@@ -1,11 +1,12 @@
 "use client";
 
-import React, {
+import {
   createContext,
   useContext,
   useState,
-  ReactNode,
   useCallback,
+  type ReactNode,
+  type FC,
 } from "react";
 import { X, Loader2, AlertCircle } from "lucide-react";
 import ReactMarkdown from "react-markdown";
@@ -31,7 +32,7 @@ interface SpinozaProviderProps {
   children: ReactNode;
 }
 
-export const SpinozaProvider: React.FC<SpinozaProviderProps> = ({
+export const SpinozaProvider: FC<SpinozaProviderProps> = ({
   children,
 }) => {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
@@ -83,10 +84,10 @@ Keep it under 150 words.`;
       {children}
 
       {selectedTopic && (
-        <div className="fixed top-0 right-0 w-80 h-full bg-[var(--surface)] shadow-2xl border-l border-[var(--border)] p-6 overflow-y-auto z-[100] animate-in slide-in-from-right duration-300">
+        <div className="fixed top-0 right-0 w-80 h-full bg-[var(--surface)] shadow-2xl border-l border-[var(--border)] p-6 overflow-y-auto z-[100] animate-in slide-in-from-right duration-300 border-bt-xl border-tr-xl">
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
+            className="absolute top-4 right-4 text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors border-bt-xl border-tr-xl"
             aria-label="Close explanation"
           >
             <X size={20} />
@@ -107,7 +108,7 @@ Keep it under 150 words.`;
               </span>
             </div>
           ) : error ? (
-            <div className="bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800 p-4">
+            <div className="bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800 p-4 border-bt-xl border-tr-xl">
               <div className="flex gap-2 mb-2">
                 <AlertCircle className="text-red-600 dark:text-red-400 flex-shrink-0" size={18} />
                 <p className="text-sm text-red-700 dark:text-red-300">
@@ -116,7 +117,7 @@ Keep it under 150 words.`;
               </div>
               <button
                 onClick={() => setError(null)}
-                className="text-xs text-red-600 dark:text-red-400 hover:underline"
+                className="text-xs text-red-600 dark:text-red-400 hover:underline border-bt-xl border-tr-xl"
               >
                 Dismiss
               </button>

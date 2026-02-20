@@ -65,7 +65,7 @@ const HierarchyDiagram = () => {
     const arrowStyle = { strokeWidth: "2", fill: "none", opacity: "0.8" };
 
     return (
-        <div className="w-full min-h-[1100px] relative font-sans overflow-auto" style={{ backgroundColor: C.bg }}>
+        <div className="w-full min-h-[1100px] relative font-sans overflow-auto border-bt-xl border-tr-xl" style={{ backgroundColor: C.bg }}>
             <div className="absolute top-4 left-8 z-10 pointer-events-none">
                 <h2 className="text-[var(--text-muted)] text-sm font-semibold tracking-widest uppercase mb-1">
                     ETHICA ORDINE GEOMETRICO DEMONSTRATA
@@ -76,7 +76,8 @@ const HierarchyDiagram = () => {
             </div>
 
             <div className="w-full max-w-[1600px] mx-auto aspect-auto relative px-4 mt-2">
-                <svg viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`} className="w-full h-auto min-h-[1100px]">
+                <svg aria-labelledby="hierarchy-title" role="img" viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`} className="w-full h-auto min-h-[1100px]">
+                    <title id="hierarchy-title">Hierarchy diagram of Spinoza's Ethics</title>
                     <defs>
                         <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
                             <feGaussianBlur in="SourceAlpha" stdDeviation="3" />

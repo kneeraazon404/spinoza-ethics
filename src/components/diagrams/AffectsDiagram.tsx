@@ -34,7 +34,7 @@ const AffectsDiagram = () => {
     const CANVAS_HEIGHT = 800;
 
     return (
-        <div className="w-full min-h-screen relative font-sans overflow-hidden" style={{ backgroundColor: C.bg }}>
+        <div className="w-full min-h-screen relative font-sans overflow-hidden border-bt-xl border-tr-xl" style={{ backgroundColor: C.bg }}>
             <div className="absolute top-4 left-8 z-10 pointer-events-none">
                 <h2 className="text-[var(--text-muted)] text-sm font-semibold tracking-widest uppercase mb-1.5">
                     Ethica: De Affectibus
@@ -45,7 +45,8 @@ const AffectsDiagram = () => {
             </div>
 
             <div className="w-full max-w-[1600px] mx-auto aspect-11/8 relative px-4">
-                <svg viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`} preserveAspectRatio="xMidYMid meet" className="w-full h-full">
+                <svg aria-labelledby="affects-title" role="img" viewBox={`0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}`} preserveAspectRatio="xMidYMid meet" className="w-full h-full">
+                    <title id="affects-title">Affects and emotions diagram</title>
                     <defs>
                         <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
                             <path d="M 40 0 L 0 0 0 40" fill="none" stroke={C.grid} strokeWidth="1" />

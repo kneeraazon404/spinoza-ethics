@@ -1,12 +1,13 @@
 "use client";
 
-import React, {
+import {
   createContext,
   useContext,
   useState,
   useEffect,
-  ReactNode,
   useCallback,
+  type ReactNode,
+  type FC,
 } from "react";
 
 type Theme = "light" | "dark";
@@ -70,7 +71,7 @@ interface ThemeProviderProps {
   children: ReactNode;
 }
 
-const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 

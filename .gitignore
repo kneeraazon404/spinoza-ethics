@@ -12,10 +12,9 @@ out/
 build/
 dist/
 *.tgz
-
+.idea/
 # Environment variables (NEVER COMMIT)
 .env
-.env.local
 .env.*.local
 .env.production.local
 .env.development.local
@@ -24,8 +23,6 @@ dist/
 # IDE / Editor
 .vscode/
 .vscode-test
-.idea/
-.DS_Store
 .AppleDouble
 .LSOverride
 *.cer
@@ -78,7 +75,6 @@ pnpm-lock.yaml
 
 # Vercel and deployment files
 .vercel
-.env.*.local
 .env.production
 
 # Developer files
@@ -86,3 +82,9 @@ pnpm-lock.yaml
 *.tmp
 *.swap
 .debug/
+
+# Archive and documentation
+archive/
+# Ignore all markdown files but keep the primary README.md
+*.md
+!README.md

@@ -30,7 +30,7 @@ const SummaryView = () => {
     }, []);
 
     return (
-        <div className="w-full h-full p-8 md:p-12 overflow-y-auto bg-[var(--surface)] rounded-2xl">
+            <div className="w-full h-full p-8 md:p-12 overflow-y-auto bg-[var(--surface)] rounded-2xl border-bt-xl border-tr-xl">
             <div className="max-w-6xl mx-auto">
                 <h2 className="text-3xl font-black text-[var(--text-primary)] mb-8 text-center whitespace-nowrap">
                     ETHICA ORDINE GEOMETRICO DEMONSTRATA
@@ -40,7 +40,7 @@ const SummaryView = () => {
                     {processedData.map((block, index) => {
                         if (block.type === 'heading' || block.type === 'title') {
                             return (
-                                <h3 key={index} className="text-2xl font-bold text-[var(--text-primary)] mt-12 mb-6 border-b pb-2 border-[var(--border)]">
+                                <h3 key={index} className="text-2xl font-bold text-[var(--text-primary)] mt-12 mb-6 border-b pb-2 border-[var(--border)] border-bt-xl border-tr-xl">
                                     {block.content.map((item) => item.text).join('')}
                                 </h3>
                             );
@@ -70,7 +70,7 @@ const SummaryView = () => {
                     })}
                 </div>
 
-                <div className="mt-16 pt-8 border-t border-[var(--border)] text-center text-[var(--text-muted)] text-sm">
+                <div className="mt-16 pt-8 border-t border-[var(--border)] text-center text-[var(--text-muted)] text-sm border-bt-xl border-tr-xl">
                     <p>Content based on Spinoza&apos;s Ethics. References provided by external sources.</p>
                 </div>
             </div>

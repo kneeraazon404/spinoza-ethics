@@ -30,6 +30,7 @@
         "name": "next"
       }
     ],
+    "types": ["node", "react", "react-dom", "next"],
     "paths": {
       "@/*": ["./src/*"]
     }

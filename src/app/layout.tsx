@@ -5,6 +5,7 @@ import "./globals.css";
 import GeometricAdvisor from "@/components/GeometricAdvisor";
 import { SpinozaProvider } from "@/context/SpinozaContext";
 import ThemeProvider from "@/context/ThemeContext";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -139,10 +140,13 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script
+        <Script
+          id="json-ld"
           type="application/ld+json"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <title>Spinoza Ethics Interactive Diagram</title>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
