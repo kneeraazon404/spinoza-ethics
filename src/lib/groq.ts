@@ -6,6 +6,10 @@ export const callGroqAI = async (
     systemPrompt: string = 'You are a helpful assistant.',
     model: string = 'llama-3.3-70b-versatile'
 ): Promise<string> => {
+    if (!GROQ_API_KEY) {
+        throw new Error('GROQ_API_KEY is not configured');
+    }
+
     const response = await fetch(GROQ_API_URL, {
         method: 'POST',
         headers: {
@@ -25,6 +29,11 @@ export const callGroqAI = async (
     const data = await response.json();
 
     if (!response.ok) {
+        console.error('Groq API Error:', {
+            status: response.status,
+            statusText: response.statusText,
+            error: data
+        });
         throw new Error(data?.error?.message || `API request failed with status ${response.status}`);
     }
 
