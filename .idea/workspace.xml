@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66682cd1-ac32-4cdf-bb73-aac3dbb2a9af" name="Changes" comment="Theme switcher and puterjs add now">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/diagrams/AboutView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/diagrams/AboutView.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="66682cd1-ac32-4cdf-bb73-aac3dbb2a9af" name="Changes" comment="Theme switcher and puterjs add now" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -126,7 +121,7 @@
       <workItem from="1771578500310" duration="2035000" />
       <workItem from="1771600021598" duration="613000" />
       <workItem from="1771602086862" duration="25000" />
-      <workItem from="1771602117204" duration="5602000" />
+      <workItem from="1771602117204" duration="5912000" />
     </task>
     <task id="LOCAL-00001" summary="Theme switcher and puterjs add">
       <option name="closed" value="true" />
@@ -184,7 +179,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771610318156</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Theme switcher and puterjs add now">
+      <option name="closed" value="true" />
+      <created>1771610695486</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1771610695486</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
