@@ -24,8 +24,10 @@ An interactive, visual journey through Baruch Spinoza's *Ethics*, designed to ma
 [https://spinoza-ethics.vercel.app](https://spinoza-ethics.vercel.app)
 
 ## Sample Images 
-<img width="2077" height="1364" alt="consultation" src="https://github.com/user-attachments/assets/90f1df33-10cc-4bf6-94f4-c6b11d726a98" /> <img width="1961" height="1125" alt="image" src="https://github.com/user-attachments/assets/fe15f5e5-7629-4698-a994-6f659f7d8741" />
+<img width="2077" height="1364" alt="consultation" src="https://github.com/user-attachments/assets/90f1df33-10cc-4bf6-94f4-c6b11d726a98" /> <img width="1684" height="1341" alt="image" src="https://github.com/user-attachments/assets/9f65bb0c-cae0-447c-90e2-c494b717bdaa" />
+ <img width="1961" height="1125" alt="image" src="https://github.com/user-attachments/assets/fe15f5e5-7629-4698-a994-6f659f7d8741" />
 <img width="2120" height="1346" alt="image" src="https://github.com/user-attachments/assets/6964755c-301d-4902-861a-eff80cccae10" />
+<img width="1600" height="1132" alt="image" src="https://github.com/user-attachments/assets/3c4f01c0-cfbb-482a-ba11-5a67d0bf574d" />
 
 
 ## Tech Stack
