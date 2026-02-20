@@ -11,6 +11,7 @@
 /.next/
 /out/
 
+.idea
 # Production
 /build
 
@@ -19,7 +20,7 @@
 *.pem
 
 # Debug logs
-npm-debug.log*
+npm-debug.log*gss
 yarn-debug.log*
 yarn-error.log*
 
