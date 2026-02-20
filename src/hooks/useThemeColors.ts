@@ -5,8 +5,7 @@ import { ThemeContext } from '@/context/ThemeContext';
 
 export const useThemeColors = () => {
     const context = useContext(ThemeContext);
-    
-    // Default light theme colors for SSR
+
     const defaultColors = {
         bg: '#ffffff',
         grid: '#e2e8f0',
@@ -64,8 +63,7 @@ export const useThemeColors = () => {
         white: '#ffffff',
         surface: '#f8fafc',
     };
-    
-    // If context is not available (SSR) or not mounted, return default light theme colors
+
     if (!context || !context.mounted) {
         return defaultColors;
     }

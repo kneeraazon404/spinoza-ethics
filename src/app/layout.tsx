@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   keywords: [
     "Spinoza", "Ethics", "Philosophy", "Interactive", "Visualization", "Diagram",
     "Metaphysics", "Epistemology", "God", "Nature", "Substance",
-    "Baruch Spinoza", "Benedict de Spinoza", "Gemini AI", "Artificial Intelligence"
+    "Baruch Spinoza", "Benedict de Spinoza", "AI", "Artificial Intelligence"
   ],
   authors: [{ name: "Kneerazon" }],
   creator: "Kneerazon",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: '/og-image.png', // Ensure you add this image to your public folder
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: "Spinoza's Ethics Interactive Diagram",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Spinoza's Ethics - Interactive Visual Exploration",
     description: "Explore Baruch Spinoza's Ethics through interactive diagrams and AI-powered explanations.",
-    images: ['/og-image.png'], // Ensure you add this image to your public folder
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -71,7 +71,6 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/favicon.ico',
-    // apple: '/apple-touch-icon.png', // Add if available
   },
   manifest: '/manifest.json',
 };
