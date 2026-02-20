@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66682cd1-ac32-4cdf-bb73-aac3dbb2a9af" name="Changes" comment="Theme switcher and puterjs add now">
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/ThemeContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/ThemeContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GeometricAdvisor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GeometricAdvisor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SpinozaEthicsDiagram.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SpinozaEthicsDiagram.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/SpinozaContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/SpinozaContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useThemeColors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useThemeColors.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,11 +18,26 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="34" />
+    <option name="cachedIndexableFilesCount" value="43" />
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {}
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:kneeraazon404/spinoza-ethics.git&quot;,
+    &quot;accountId&quot;: &quot;e27b449b-a463-45a1-8850-58e6af481529&quot;
+  }
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -58,7 +77,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "ml.llm.LLMConfigurable",
     "to.speed.mode.migration.done": "true",
     "ts.external.directory.path": "/home/kneeraazon/Workspace/spinoza-ethics/node_modules/typescript/lib"
   }
@@ -81,7 +100,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.30387.83" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.31033.133" />
       </set>
     </attachedChunks>
   </component>
@@ -98,7 +117,10 @@
       <workItem from="1764738308579" duration="22000" />
       <workItem from="1764738336987" duration="91000" />
       <workItem from="1764738433743" duration="1634000" />
-      <workItem from="1771513740432" duration="12353000" />
+      <workItem from="1771513740432" duration="13113000" />
+      <workItem from="1771530316049" duration="249000" />
+      <workItem from="1771530569470" duration="202000" />
+      <workItem from="1771566437559" duration="1916000" />
     </task>
     <task id="LOCAL-00001" summary="Theme switcher and puterjs add">
       <option name="closed" value="true" />
@@ -140,7 +162,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771529036813</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Theme switcher and puterjs add now">
+      <option name="closed" value="true" />
+      <created>1771529529936</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1771529529936</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -2,38 +2,22 @@
 
 import React, { useState } from 'react';
 import { ArrowRight, BookOpen, Loader2, Sparkles, X } from 'lucide-react';
-import { callPuterAI, WindowPuter } from '@/lib/puter';
+import { callGroqAI } from '@/lib/groq';
 
 const GeometricAdvisor = () => {
     const [showAdvisor, setShowAdvisor] = useState(false);
     const [userQuery, setUserQuery] = useState("");
     const [advisorResponse, setAdvisorResponse] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [puterLoaded, setPuterLoaded] = useState(false);
-
-    React.useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const win = window as Window & { puter?: WindowPuter };
-            if (!win.puter) {
-                const script = document.createElement('script');
-                script.src = 'https://js.puter.com/v2/';
-                script.async = true;
-                script.onload = () => setPuterLoaded(true);
-                document.body.appendChild(script);
-            } else {
-                setPuterLoaded(true);
-            }
-        }
-    }, []);
 
     const handleAdvisorSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!userQuery.trim() || !puterLoaded) return;
+        if (!userQuery.trim()) return;
 
         setAdvisorResponse(null);
         setIsLoading(true);
 
-        const systemPrompt = `You are Baruch Spinoza. You reply to personal problems NOT with generic advice, but by generating a specific 'Proposition', 'Demonstration', and 'Scholium' in the style of your book 'The Ethics'. 
+        const systemPrompt = `You are Baruch Spinoza. You reply to personal problems NOT with generic advice, but by generating a specific 'Proposition', 'Demonstration', and 'Scholium' in the style of your book 'The Ethics'.
 - Proposition: A concise statement of truth regarding the user's problem.
 - Demonstration: A logical proof derived from reason.
 - Scholium: A compassionate, practical comment on how to apply this.
@@ -42,7 +26,7 @@ Tone: Rational, geometric, yet deeply liberating.`;
         const userPrompt = `The user says: "${userQuery}". Construct a geometric proof to help them.`;
 
         try {
-            const text = await callPuterAI(`${systemPrompt}\n\n${userPrompt}`);
+            const text = await callGroqAI(userPrompt, systemPrompt);
             setAdvisorResponse(text);
         } catch (error) {
             console.error(error);
@@ -85,14 +69,11 @@ Tone: Rational, geometric, yet deeply liberating.`;
                                 />
                                 <button
                                     type="submit"
-                                    disabled={isLoading || !userQuery.trim() || !puterLoaded}
+                                    disabled={isLoading || !userQuery.trim()}
                                     className="w-full py-3 bg-[var(--accent)] text-white rounded-lg font-semibold hover:bg-[var(--accent-hover)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                 >
                                     {isLoading ? <Loader2 className="animate-spin" /> : <><BookOpen size={18} /> Demonstrate</>}
                                 </button>
-                                {!puterLoaded && (
-                                    <p className="text-xs text-[var(--text-muted)] mt-2 text-center">Loading AI...</p>
-                                )}
                             </form>
                         ) : (
                             <div className="w-full bg-[var(--surface-muted)] rounded-xl border border-[var(--border)] p-6 max-h-[60vh] overflow-y-auto">

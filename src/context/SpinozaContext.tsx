@@ -1,9 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { X, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import { callPuterAI, WindowPuter } from '@/lib/puter';
+import { callGroqAI } from '@/lib/groq';
 
 interface SpinozaContextType {
     explainConcept: (title: string, context: string) => Promise<void>;
@@ -24,31 +24,19 @@ export const SpinozaProvider = ({ children }: { children: ReactNode }) => {
     const [aiResponse, setAiResponse] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const win = window as Window & { puter?: WindowPuter };
-            if (!win.puter) {
-                const script = document.createElement('script');
-                script.src = 'https://js.puter.com/v2/';
-                script.async = true;
-                document.body.appendChild(script);
-            }
-        }
-    }, []);
-
     const explainConcept = async (title: string, context: string) => {
         setSelectedTopic(title);
         setAiResponse("");
         setIsLoading(true);
 
         const systemPrompt = "You are an expert on Baruch Spinoza's Ethics. Explain concepts clearly, concisely, and relate them to modern life. Use a calm, rational tone.";
-        const userPrompt = `Explain the concept of "${title}" specifically in the context of "${context}" from Spinoza's Ethics. 
+        const userPrompt = `Explain the concept of "${title}" specifically in the context of "${context}" from Spinoza's Ethics.
 1. Summarize the core philosophical argument.
 2. Give a concrete, modern-day example of this concept in action.
 Keep it under 150 words.`;
 
         try {
-            const text = await callPuterAI(`${systemPrompt}\n\n${userPrompt}`);
+            const text = await callGroqAI(userPrompt, systemPrompt);
             setAiResponse(text);
         } catch (error) {
             console.error(error);

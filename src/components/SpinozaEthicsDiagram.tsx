@@ -120,7 +120,7 @@ const SpinozaEthicsDiagram = () => {
                     Credit: <span className="font-semibold text-[var(--text-secondary)]">Baruch Spinoza</span> — <i>Ethica Ordine Geometrico Demonstrata</i> (1677)
                 </div>
                 <div className="flex items-center gap-1">
-                    <span>&copy; {new Date().getFullYear()} Nirajan Karki | Created with passion by </span>
+                    <span>&copy; {new Date().getFullYear()} | Created with passion by </span>
                     <a
                         href="https://kneeraazon.com"
                         target="_blank"

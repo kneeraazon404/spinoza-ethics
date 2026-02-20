@@ -65,11 +65,11 @@ export const useThemeColors = () => {
         surface: '#f8fafc',
     };
     
-    // If context is not available (SSR), return default light theme colors
-    if (!context) {
+    // If context is not available (SSR) or not mounted, return default light theme colors
+    if (!context || !context.mounted) {
         return defaultColors;
     }
-    
+
     const { theme } = context;
     
     const colors = {
